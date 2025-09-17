@@ -4,7 +4,8 @@ MLX_NAME	= libmlx.a
 LIB_NAME	= libft.a
 
 SRC			= main.c \
-			parsing/parse_colors.c parsing/parse_textures.c parsing/parse_map.c 
+			parsing/parse_colors.c parsing/parse_textures.c \
+			parsing/parse_map.c parsing/parse_utils.c
 
 OBJ			= $(SRC:.c=.o)
 

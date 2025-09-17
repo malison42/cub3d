@@ -88,6 +88,7 @@ typedef struct s_textures
 int		parse_map(char *filepath);
 void	free_tokens(char **tokens);
 char	**parse_tokens(int fd);
+char	***read_lines(int fd);
 int		parse_wall(char ***lines, char	*orientation);
 t_color	parse_color(char ***lines, char *surface);
 int		parse_textures(int fd, t_textures *tex);
