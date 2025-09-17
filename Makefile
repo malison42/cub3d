@@ -3,7 +3,8 @@ NAME		= cub3D
 MLX_NAME	= libmlx.a
 LIB_NAME	= libft.a
 
-SRC			= main.c
+SRC			= main.c \
+			parsing/parse_colors.c parsing/parse_textures.c parsing/parse_map.c 
 
 OBJ			= $(SRC:.c=.o)
 
@@ -45,4 +46,7 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+norm:		
+			/usr/bin/norminette $(SRC) $(HEADER)
+
+.PHONY:		all clean fclean re norm

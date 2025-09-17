@@ -1,0 +1,9 @@
+NO fdf.h
+SO main.c
+WE cub.h
+
+EA mlx.h
+F 255,0,0
+
+C 0,0,255
+
