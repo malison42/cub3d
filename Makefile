@@ -5,7 +5,9 @@ LIB_NAME	= libft.a
 
 SRC			= main.c \
 			parsing/parse_colors.c parsing/parse_textures.c \
-			parsing/parse_map.c parsing/parse_utils.c
+			parsing/parse_map.c parsing/parse_utils.c \
+			print/pixel.c print/print2D.c  \
+			hooks.c print/game.c
 
 OBJ			= $(SRC:.c=.o)
 
@@ -31,7 +33,7 @@ endif
 all:		$(NAME)
 
 $(NAME):	$(OBJ) $(HEADER) Makefile
-			@$(MAKE) -C $(LIB_DIR)
+			@$(MAKE) bonus -C $(LIB_DIR)
 			@$(MAKE) -C $(MLX_DIR)
 			$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
 

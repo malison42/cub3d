@@ -9,7 +9,8 @@ SRCS		= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 				ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
 				ft_substr.c ft_tolower.c ft_toupper.c ft_memcpy.c \
 				get_next_line.c get_next_line_utils.c ft_atoi_hex.c \
-				ft_isspace.c ft_strcmp.c ft_isset.c ft_strndup.c
+				ft_isspace.c ft_strcmp.c ft_isset.c ft_strndup.c \
+				ft_max.c ft_min.c
 
 OBJS		= $(SRCS:.c=.o)
 

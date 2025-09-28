@@ -14,10 +14,14 @@
 # define KEYS_MACOS_H
 
 # define ESC 53
-# define UP 126
-# define DOWN 125
-# define RIGHT 124
-# define LEFT 123
+# define UP 13
+# define DOWN 1
+# define RIGHT 2
+# define LEFT 0
+
+# define LEFT_VIEW 123
+# define RIGHT_VIEW 124
+
 # define SPACE 49
 # define MOUSE_CLICK 1
 # define MOUSE_UP 5
