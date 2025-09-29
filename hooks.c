@@ -7,14 +7,15 @@ int	close_win(void)
 
 void	draw_image(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->image.img);
+	if (game->image.img)
+		mlx_destroy_image(game->mlx, game->image.img);
 	game->image.img = mlx_new_image(game->mlx, A, B);
 	game->image.addr = mlx_get_data_addr(game->image.img,
 										 &game->image.bpp,
 										 &game->image.line_size,
 										 &game->image.endian);
-//	print_2D_map(game);
-	draw_game(game);
+	print_2D_map(game);
+	// draw_game(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
 }
 

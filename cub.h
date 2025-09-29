@@ -171,4 +171,6 @@ int	key_hook(int key, t_game *game);
 void	draw_line(t_game *game, double ray, int pix_x);
 void	draw_game(t_game *game);
 
+void	draw_image(t_game *game);
+
 #endif

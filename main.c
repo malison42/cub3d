@@ -4,9 +4,10 @@ void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
-	game->image.img = mlx_new_image(game->mlx, A, B);
-	game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp, &game->image.line_size,
-										&game->image.endian);
+	// game->image.img = mlx_new_image(game->mlx, A, B);
+	// game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp, &game->image.line_size,
+	// 									&game->image.endian);
+	game->image.img = NULL;
 	init_map2D(game);
 }
 
@@ -31,8 +32,9 @@ int	main(int argc, char **argv)
 //	calculate_small_map(&game);
 //	printf("qw %f\n", game.player.view);
 	
-//	print_2D_map(&game);
-	draw_game(&game);
+	// print_2D_map(&game);
+	// draw_game(&game);
+	draw_image(&game);
 	
 	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
 	mlx_do_key_autorepeaton(game.mlx);
