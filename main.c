@@ -31,8 +31,8 @@ int	main(int argc, char **argv)
 //	calculate_small_map(&game);
 //	printf("qw %f\n", game.player.view);
 	
-//	print_2D_map(&game);
-	draw_game(&game);
+	print_2D_map(&game);
+//	draw_game(&game);
 	
 	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
 	mlx_do_key_autorepeaton(game.mlx);
