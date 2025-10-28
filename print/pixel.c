@@ -16,3 +16,11 @@ void	put_pixel(t_image *img, int x, int y, t_color color)
 	*(unsigned int*)dst = create_color(color);
 }
 
+t_point	new_point(int x, int y)
+{
+	t_point	p;
+
+	p.x = x;
+	p.y = y;
+	return (p);
+}

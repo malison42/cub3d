@@ -69,6 +69,12 @@ typedef struct s_textures
 	t_color	ceiling;
 }	t_textures;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_player
 {
 	int		x;
@@ -160,6 +166,8 @@ char	*get_line(int fd);
 void	put_pixel(t_image *img, int x, int y, t_color color);
 int		create_color(t_color color);
 void	put_square(t_game *game, int x, int y, t_color color);
+
+t_point	new_point(int x, int y);
 
 
 //print

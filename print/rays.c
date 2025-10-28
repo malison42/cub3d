@@ -1,42 +1,85 @@
 #include "../cub.h"
 
-t_color	check_wall(t_game *game, int x, int y)
+t_wall	check_wall(t_game *game, t_point p, t_point dir)
 {
-	return (new_color(0, 0, 0));
+	t_wall	wall;
+
+	wall.x = p.x;
+	wall.y = p.y;
+	if (game->map[(p.y) / SCALE][(p.x + 5 * dir.x) / SCALE] == '1')
+	{
+		if (dir.x > 0)
+			wall.color = new_color(195, 205, 250); // WEST
+		else
+			wall.color = new_color(195, 250, 205); // EAST
+	}
+	else if (game->map[(p.y + 5 * dir.y) / SCALE][(p.x) / SCALE] == '1')
+	{
+		if (dir.y > 0)
+			wall.color = new_color(250, 250, 190); // NORTH
+		else
+			wall.color = new_color(250, 200, 190); // SOUTH
+	}
+	else
+		wall.color = new_color(-1, -1, -1);
+	return (wall);
 }
 
-t_wall	find_x_wall(t_game *game, double ray)
+t_point	calc_direction(double ray)
 {
+	t_point	dir;
 
+	if (cos(ray) > 0)
+		dir.x = 1;
+	else
+		dir.x = -1;
+	if (sin(ray) > 0)
+		dir.y = 1;
+	else
+		dir.y = -1;
+	return (dir);
 }
 
 t_wall	find_wall(t_game *game, double ray)
 {
-	int bias_x;
-	int bias_y;
-	int dx;
-	int dy;
-	int x1;
-	int y1;
-	int x_new;
-	int y_new;
-	
+	t_point dir;
+	t_point x; // intersection with x-line
+	t_point	y; // intersection with y-line
+	t_wall	wall;
+	t_point line; // current point
+
 	if (sin(ray) == 0)
 		return (NULL);
 	if (cos(ray) == 0)
 		return (NULL);
 	
-	bias_x = cos(ray) > 0;
-	bias_y = sin(ray) > 0;
+	wall.x = game.player.x;
+	wall.y = game.player.y;
+	wall.color = new_color(-1, -1, -1);
+	dir = calc_direction(ray);
+	line = new_point(game.player.x / SCALE, game.player.y / SCALE);
+	if (dir.x > 0)
+		line.x += 1;
+	if (dir.y > 0)
+		line.y += 1;
 	
-	dx = (game->player.x / SCALE + bias_x) * SCALE;
-	dy = (game->player.y / SCALE + bias_y) * SCALE;
-	y1 = game->player.y + dx * tan(ray);
-	x1 = game->player.x + dy / tan(ray);
-	if (y1 - game->player.y < dy)
+	while (line.x >= 0 && line.y >= 0 && line.x < game.map_x && line.y < game.map_y)
 	{
-		x_new = game->player.x + dx;
-		y_new = y1;
+		x.x = line.x * SCALE;
+		y.y = line.y * SCALE;
+		x.y = game.player.y + (x.x - game.player.x) * tan(ray);
+		y.x = game.player.x + (y.y - game.player.y) / tan(ray);
+
+		if (abs(y.y - line.y) < abs(x.y - line.y))
+			wall = check_wall(game, y);
+		else
+			wall = check_wall(game, x);
+		if (wall.color.r < 0)
+		{
+			line.x += dir.x;
+			line.y += dir.y;
+		}
+
 	}
-	
+	return (wall);
 }
