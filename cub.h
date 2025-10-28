@@ -78,6 +78,13 @@ typedef struct s_player
 	double	view;
 }	t_player;
 
+typedef struct s_wall
+{
+	int		x;
+	int 	y;
+	t_color	color;
+}	t_wall;
+
 typedef struct s_image
 {
 	void	*img;
