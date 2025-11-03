@@ -143,7 +143,7 @@ void	free_tokens(char **tokens);
 char	**parse_tokens(int fd);
 char	***read_lines(int fd);
 int		parse_wall(char ***lines, char	*orientation);
-t_color	parse_color(char ***lines, char *surface);
+t_color	parse_color(char *token_config);
 int		parse_textures(int fd, t_textures *tex);
 
 t_color	new_color(int r, int g, int b);

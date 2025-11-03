@@ -1,0 +1,6 @@
+NO ./path/n.xpm
+WE ./path/w.xpm
+
+F 220,100,0
+SO ./path/s.xpm
+EA ./path/e.xpm C 225,30,225

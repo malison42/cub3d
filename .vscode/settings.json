@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"cub.h": "c",
+		"libft.h": "c",
+		"parsing_map.h": "c"
+	}
+}
