@@ -151,5 +151,6 @@ int	is_mape_closure(t_game *game, char **map)
 		return (free_array(copy_map), 0);
 	if (!check_all_reachable(copy_map))
 		return (free_array(copy_map), 0);
+	free_array(copy_map);
 	return (1);
 }

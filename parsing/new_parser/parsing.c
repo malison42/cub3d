@@ -201,25 +201,7 @@ int validate_player_start(t_game *game, char **map)
 	game->player.direction = game->start.view;
 	return (1);
 }
-int	is_valid_sym(t_game *game, char **map, char *set)
-{
-	int	x;
-	int	y;
 
-	y = 0;
-	while (y < game->map_y)
-	{
-		x = 0;
-		while (x < game->map_x)
-		{
-			if (!ft_isset(map[y][x], set))
-				return (0);
-			x++;
-		}
-		y++;
-	}
-	return (1);
-}
 
 
 
@@ -229,7 +211,9 @@ int	is_valid_map(t_game *game, char **map)
 		return (0);
 	if (!validate_player_start(game, map))
 		return (0);
-
+	if (!is_mape_closure(game, map))
+		return (0);
+	return (1);
 }
 
 char	**parse_map(int fd, t_game *game)
@@ -245,7 +229,69 @@ char	**parse_map(int fd, t_game *game)
 	map = get_normalized_map(game, map_list);
 	if (!map)
 		return (ft_lstclear(&map_list, free), NULL);
-	// TODO дальше должна бфть валидация символов и проверка на замкнутость карты
-	ft_lstclear(&map_list, free);
+	ft_lstclear(&map_list, free); // освобождаем так как дальше лист не нужен
+	if (!is_valid_map(game, map))
+		return (NULL);
 	return (map);
+}
+
+void	close_fd(int *fd, int i)
+{
+	while (i > -1)
+	{
+		close(fd[i]);
+		i--;
+	}
+}
+
+int	get_fd_texture(t_game *game, t_parsing_var *game_var)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		game->texture->fd_texture[i] = open(game_var->texturs[i].path_texture, O_RDONLY);
+		if (game->texture->fd_texture[i] == -1)
+			return(close_fd(game->texture->fd_texture, i - 1), 0);
+		i++;
+	}
+	return(1);
+}
+
+void	ft_free_path_texture(t_parsing_var *game_var)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(game_var->texturs[i].path_texture);
+		i++;
+	}
+}
+int	parse_game_file(t_game *game, char *argv, int argc)
+{
+	int	fd;
+	t_parsing_var game_var;
+
+	if (argc != 2)
+		return (0);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return(perror("Open"), 0);
+	if (!parsing_configs(fd, &game_var))
+		return (close(fd), 0);
+	if (!get_fd_texture(game, &game_var))
+		return (close(fd), 0); // добавить perror
+	game_var.map = parse_map(fd, game);
+	if (!game_var.map)
+		return(close(fd), 0);
+	game->map = game_var.map;
+	game->start = game_var.start;
+	game->texture->ceiling = game_var.ceiling;
+	game->texture->floor = game_var.floor;
+	ft_free_path_texture(&game_var);
+	close(fd);
+	return (1);
 }

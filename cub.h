@@ -61,10 +61,11 @@ typedef struct s_color
 
 typedef struct s_textures
 {
-	int		north;
-	int		south;
-	int		west;
-	int		east;
+	// int		north;
+	// int		south;
+	// int		west;
+	// int		east;
+	int		fd_texture[4];
 	t_color	floor;
 	t_color	ceiling;
 }	t_textures;

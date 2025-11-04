@@ -1,6 +1,24 @@
 #include "parsing_map.h"
 
+int	is_valid_sym(t_game *game, char **map, char *set)
+{
+	int	x;
+	int	y;
 
+	y = 0;
+	while (y < game->map_y)
+	{
+		x = 0;
+		while (x < game->map_x)
+		{
+			if (!ft_isset(map[y][x], set))
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
 
 int	check_for_duplicate(t_config_flags flags_mask, t_config_flags flag, char *specificer)
 {
