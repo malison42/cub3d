@@ -90,6 +90,19 @@ int	is_node_null(t_list *tmp, t_list **map_list, char *line)
 	return (0);
 }
 
+int	get_map_x(char *line, int map_x)
+{
+	int	line_length;
+
+	line_length = ft_strlen(line);
+	if (line_length > 0 && line[line_length - 1] == '\n')
+	{
+		line[line_length - 1] = '\0';
+		line_length--;
+	}
+	return (ft_max(map_x, line_length));
+}
+
 t_list	*read_map_to_list(int fd, int *map_x)
 {
 	t_list	*map_list;
@@ -105,7 +118,7 @@ t_list	*read_map_to_list(int fd, int *map_x)
 	}
 	while (line)
 	{
-		*map_x = ft_max(*map_x, ft_strlen(line));
+		*map_x = get_map_x(line, *map_x);
 		tmp = ft_lstnew((void *)ft_strdup(line));
 		if (is_node_null(tmp, &map_list, line))
 			return (NULL);
@@ -132,7 +145,7 @@ char	**get_normalized_map(t_game *game, t_list *map_list)
 		map[i] = malloc(game->map_x + 1);
 		if (!map[i])
 			return(free_map_array(map, i), NULL);
-		ft_strlcpy(map[i], (char *)tmp->content, ft_strlen((char *)tmp->content));
+		ft_strlcpy(map[i], (char *)tmp->content, game->map_x + 1);
 		map[i] = pad_line_end(map[i], game->map_x);
 		//printf("%s\n", map[i]);
 		tmp = tmp->next;
@@ -229,6 +242,11 @@ char	**parse_map(int fd, t_game *game)
 	map = get_normalized_map(game, map_list);
 	if (!map)
 		return (ft_lstclear(&map_list, free), NULL);
+	for (size_t i = 0; map[i] != NULL; i++)
+	{
+		printf("MAP[%zu]: %s\n", i, map[i]);
+	}
+	
 	ft_lstclear(&map_list, free); // освобождаем так как дальше лист не нужен
 	if (!is_valid_map(game, map))
 		return (NULL);

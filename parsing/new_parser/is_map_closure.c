@@ -42,7 +42,7 @@ char	*create_wrapped_cols(t_game *game, char **map, int i)
 	else
 	{
 		wrapped_line[0] = '#';
-		ft_strlcpy(wrapped_line + 1, map[i - 1], game->map_x + 1);
+		ft_memcpy(wrapped_line + 1, map[i - 1], game->map_x + 1);
 		wrapped_line[wrapped_cols - 1] = '#';
 	}
 	wrapped_line[wrapped_cols] = '\0';
