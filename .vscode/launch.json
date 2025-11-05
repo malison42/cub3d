@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Отладка (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/parsing/new_parser/test_parsing/test_parsing",
+            "args": [
+                // Предполагаем, что папка test_parsing не дублируется
+                "${workspaceFolder}/parsing/new_parser/test_parsing/test_map/test_3_fail_miss.cub"
+            ],
+            "stopAtEntry": false,
+            // CWD указывает на папку, где находится исполняемый файл
+            "cwd": "${workspaceFolder}/parsing/new_parser/test_parsing", 
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Сборка проекта с помощью Make" 
+        }
+    ]
+}

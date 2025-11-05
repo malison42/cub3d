@@ -14,7 +14,7 @@ void free_array(char **array)
 	free(array); // Освобождение самого массива указателей
 }
 
-char	fill_str_symb(char	*str, char symb, int len_alloc)
+char	*fill_str_symb(char	*str, char symb, int len_alloc)
 {
 	int	i;
 

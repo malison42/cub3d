@@ -1,0 +1,51 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc сборка активного файла",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Задача создана отладчиком."
+        },
+        {
+            "label": "Сборка проекта с помощью Make",
+            "type": "shell", // Используем оболочку для выполнения команды
+            "command": "make", // Выполняем make (по умолчанию цель 'all')
+            "args": [
+                // Опционально: можно указать конкретную цель, например:
+                // "all" 
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/parsing/new_parser/test_parsing"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true // Делаем эту задачу задачей по умолчанию
+            },
+            "presentation": {
+                "reveal": "always" // Всегда показывать вывод
+            },
+            "problemMatcher": [
+                "$gcc" // Используем стандартный парсер ошибок gcc/make
+            ],
+            "detail": "Сборка всего проекта через Makefile."
+        }
+    ],
+    "version": "2.0.0"
+}

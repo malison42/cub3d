@@ -1,7 +1,7 @@
 #include "parsing_map.h"
 
 
-int	set_flags(char *specificer, int *flags_mask)
+int	set_flags(char *specificer, t_config_flags *flags_mask)
 {
 	if (!ft_strcmp(specificer, "F"))
 		*flags_mask |= FLAG_F;

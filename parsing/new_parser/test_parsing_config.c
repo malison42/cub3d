@@ -71,28 +71,28 @@ int run_single_test(char *filepath, char *test_name, int expected_result)
 }
 
 // --- Главная функция main ---
-int main(void)
-{
-    int errors = 0;
+// int main(void)
+// {
+//     int errors = 0;
 
-    t_test_case tests[] = {
-      //  {"./test_1_success.cub", 1, "Полная и валидная конфигурация"},
-      //  {"./test_2_fail_dup.cub", 0, "Ошибка: Дубликат идентификатора (NO)"},
-        {"./test_3_fail_miss.cub", 0, "Ошибка: Неполная конфигурация (нет C)"},
-        {NULL, 0, NULL}
-    };
+//     t_test_case tests[] = {
+//       //  {"./test_1_success.cub", 1, "Полная и валидная конфигурация"},
+//       //  {"./test_2_fail_dup.cub", 0, "Ошибка: Дубликат идентификатора (NO)"},
+//         {"./test_3_fail_miss.cub", 0, "Ошибка: Неполная конфигурация (нет C)"},
+//         {NULL, 0, NULL}
+//     };
 
-    printf("--- 🧪 Тестирование parsing_configs с реальными файлами ---\n");
+//     printf("--- 🧪 Тестирование parsing_configs с реальными файлами ---\n");
 
-    for (int i = 0; tests[i].filepath != NULL; i++)
-    {
-        errors += run_single_test(
-            tests[i].filepath,
-            tests[i].description,
-            tests[i].expected
-        );
-    }
+//     for (int i = 0; tests[i].filepath != NULL; i++)
+//     {
+//         errors += run_single_test(
+//             tests[i].filepath,
+//             tests[i].description,
+//             tests[i].expected
+//         );
+//     }
 
-    printf("\n--- Итог: %d ошибок ---\n", errors);
-    return (errors > 0 ? EXIT_FAILURE : EXIT_SUCCESS);
-}
+//     printf("\n--- Итог: %d ошибок ---\n", errors);
+//     return (errors > 0 ? EXIT_FAILURE : EXIT_SUCCESS);
+// }

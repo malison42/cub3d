@@ -40,12 +40,12 @@ t_color	parse_color(char *token_config)
 	if (!col)
 		return (perror("malloc"), new_color(-1, -1, -1));
 	color = new_color(get_col(col[0]), get_col(col[1]), get_col(col[2]));
-	free_tokens(col);
 	if (color.r < 0 || color.g < 0 || color.b < 0 || col[3])
 	{
 		ft_putstr_fd(MESSAGE_SCENE_NOT_VALID, STDERR_FILENO);
-		return (new_color(-1, -1, -1));
+		return (free_tokens(col) ,new_color(-1, -1, -1));
 	}
+	free_tokens(col);
 	return (color);
 }
 int	set_rgb(t_parsing_var *game_var, t_color temp_color, char *specificer)

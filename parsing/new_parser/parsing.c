@@ -34,7 +34,7 @@ int		fill_config(t_parsing_var *game_var, char **token_config)
 	if (is_rgb_coloor(specificer))
 		return (fill_rgb_color(specificer, game_var,token_config[1]));
 	else if (is_path_texture(specificer))
-			return (fill_path_texture(game_var, specificer, token_config[0]));
+			return (fill_path_texture(game_var, specificer, token_config[1]));
 	else
 		return (0);
 }
@@ -100,7 +100,7 @@ t_list	*read_map_to_list(int fd, int *map_x)
 	line = get_line(fd);
 	if (!line)
 	{
-		ft_putstr_fd("wrong map", STDERR_FILENO);
+		ft_putstr_fd("Error: Map not found\n", STDERR_FILENO);
 		return (NULL);
 	}
 	while (line)
@@ -159,7 +159,7 @@ int	set_player(t_player *start, int x, int y, char view)
 	return (EXIT_SUCCESS);
 }
 
-int	check_start_pos(t_game *game, int y)
+int	check_start_pos(t_game *game, int y, char **map)
 {
 	int x;
 	int	count_start_pos;
@@ -168,11 +168,11 @@ int	check_start_pos(t_game *game, int y)
 	x = 0;
 	while (x < game->map_x)
 	{
-		if (ft_isset(game->map[y][x], "NSWE"))
+		if (ft_isset(map[y][x], "NSWE"))
 		{
 			// ? Возможно стоит добавить флаг а не использовать значении данное при иницилизации
-			if (count_start_pos == 0 && game->start.view == 0)
-				set_player(&game->start, x, y, game->map[y][x]);
+			if (count_start_pos == 0 && game->start.view == 0) // !работет при иницилизации нулями
+				set_player(&game->start, x, y, map[y][x]);
 			count_start_pos++;
 		}
 		++x;
@@ -189,7 +189,7 @@ int validate_player_start(t_game *game, char **map)
 	y = 0;
 	while (y < game->map_y)
 	{
-		count_start_pos += check_start_pos(game, y);
+		count_start_pos += check_start_pos(game, y, map);
 		if (count_start_pos > 1)
 			return (0);
 		++y;
@@ -251,9 +251,15 @@ int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 	i = 0;
 	while (i < 4)
 	{
+		printf("fd =%d", game->texture->fd_texture[i]);
 		game->texture->fd_texture[i] = open(game_var->texturs[i].path_texture, O_RDONLY);
+		printf("str =%s", game_var->texturs[i].path_texture);
 		if (game->texture->fd_texture[i] == -1)
-			return(close_fd(game->texture->fd_texture, i - 1), 0);
+		{
+			perror("file_texture");
+			close_fd(game->texture->fd_texture, i - 1);
+			return(0);
+		}
 		i++;
 	}
 	return(1);
@@ -270,11 +276,12 @@ void	ft_free_path_texture(t_parsing_var *game_var)
 		i++;
 	}
 }
-int	parse_game_file(t_game *game, char *argv, int argc)
+int	parse_game_file(t_game *game, char *argv[], int argc)
 {
 	int	fd;
 	t_parsing_var game_var;
 
+	game_var.flags_mask = 0;
 	if (argc != 2)
 		return (0);
 	fd = open(argv[1], O_RDONLY);

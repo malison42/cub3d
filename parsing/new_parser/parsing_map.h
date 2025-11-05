@@ -1,7 +1,7 @@
 #ifndef PARSING_MAP_H
 # define PARSING_MAP_H
 
-#define VALID_CHARS "01NSEW "
+#define VALID_CHARS "01NSEW #"
 
 #include "../../cub.h"
 
@@ -50,8 +50,15 @@ int parsing_configs(int fd, t_parsing_var *game_var);
 void free_map_array(char **map, int rows_to_free);
 int	is_mape_closure(t_game *game, char **map);
 void	free_tokens(char **tokens);
-int	parse_game_file(t_game *game, char *argv, int argc);
+int	parse_game_file(t_game *game, char *argv[], int argc);
 
 int	uniqueness_verification(t_config_flags flags_mask, char *specificer);
-int	set_flags(char *specificer, int *flags_mask);
+int	set_flags(char *specificer, t_config_flags *flags_mask);
+int	is_rgb_coloor(char	*specificer);
+int	is_path_texture(char *specificer);
+char	**get_token_config(int fd);
+int	fill_rgb_color(char *specificer, t_parsing_var *game_var, char *rgb_collors);
+int	fill_path_texture(t_parsing_var *game_var, char	*specificer, char *path_texture);
+int	is_valid_sym(t_game *game, char **map, char *set);
+int	validate_token_config(char **token_config, char **config_specificers);
 #endif

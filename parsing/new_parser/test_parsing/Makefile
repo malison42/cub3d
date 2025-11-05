@@ -19,8 +19,8 @@ HEADER      = /home/vzots/42_project/cub3d/cub.h \
 			/home/vzots/42_project/cub3d/parsing/new_parser/parsing_map.h \
 			/home/vzots/42_project/cub3d/libmlx_linux/mlx.h
 
-CFLAGS      = -Wall -Wextra -Werror -I$(MLX_DIR) -I$(LIB_DIR) #-g -fsanitize=address
-
+CFLAGS      = -g -Wall -Wextra -Werror -I$(MLX_DIR) -I$(LIB_DIR) -I$(SRC_DIR)#-g -fsanitize=address
+LFLAGS		= -L$(LIB_DIR) -lft
 
 %.o:%.c     $(HEADER) Makefile
 # Правило находит %.c в VPATH и компилирует в %.o в текущей директории
