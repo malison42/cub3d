@@ -29,7 +29,7 @@ void	line_x(t_point a, t_point b, t_game *game)
 	c = a;
 	i = 0;
 	sign_i = 1 * (b.y > a.y) - 1 * (b.y < a.y);
-	printf("k = %f   sign = %d\n", k, sign_i);
+	// printf("k = %f   sign = %d\n", k, sign_i);
 	while (i < (int)(abs(b.x - a.x)))
 	{
 		if (fabs(k * i * sign_i + a.y - c.y) > 0.5)

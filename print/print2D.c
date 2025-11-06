@@ -22,6 +22,8 @@ void recalculate_player(t_game *game)
 	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale;
 	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale;
 	game->map2D.player.direction = game->player.direction;
+	// printf("player: x = %f  y = %f\n", game->player.x, game->player.y);
+	// printf("2D player: x = %f  y = %f\n", game->map2D.player.x, game->map2D.player.y);
 }
 
 void	draw_walls(t_game *game)
@@ -107,7 +109,7 @@ void	draw_fow(t_game *game)
 	while (ray < game->map2D.player.direction + M_PI / 6)
 	{
 		draw_line_ray(game, ray);
-		ray += M_PI_4 / 360;
+		ray += M_PI_4 / RAYS_2D;
 	}
 }
 

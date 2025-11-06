@@ -29,12 +29,13 @@
 #  include "keys_linux.h"
 # endif
 
-# define A 640
-# define B 400
+# define A 1920
+# define B 1200
 # define SIDE 20
 # define SCALE 64
 # define WALL 64
 # define COEF 277
+# define RAYS_2D 360
 //# define SHIFT 2
 
 //relief height
@@ -79,8 +80,6 @@ typedef struct s_player
 {
 	int		x;
 	int 	y;
-	int		curr_x;
-	int		curr_y;
 	double	view;
 }	t_player;
 
@@ -99,24 +98,6 @@ typedef struct s_image
 	int		line_size;
 	int		endian;
 }	t_image;
-
-typedef struct s_small_map
-{
-	int			scale;
-	int 		left_border;
-	int			right_border;
-	int			top_border;
-	int			bottom_border;
-	int 		shift_x;
-	int 		shift_y;
-	int			player_x;
-	int			player_y;
-	t_color		wall_color;
-//	t_color		player_color;
-	t_color		fow_color;
-//	t_color		dir_color;
-	t_image		*image;
-}	t_small_map;
 
 typedef struct s_ray
 {
@@ -144,7 +125,6 @@ typedef struct s_game
 	int			map_x;
 	int			map_y;
 	char		**map;
-	t_small_map	small_map;
 	t_player	start;
 	t_map2D		map2D;
 	t_ray		player;
@@ -188,5 +168,7 @@ void	draw_game(t_game *game);
 
 t_wall	find_wall(t_game *game, double ray);
 void	line(t_point a, t_point b, t_game *game);
+
+void	draw_image(t_game *game);
 
 #endif
