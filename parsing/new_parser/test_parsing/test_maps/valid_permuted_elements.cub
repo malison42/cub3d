@@ -1,0 +1,12 @@
+F 220,100,0
+EA ./test_assets/valid_texture.xpm
+NO ./test_assets/valid_texture.xpm
+
+SO ./test_assets/valid_texture.xpm
+C 225,30,0
+WE ./test_assets/valid_texture.xpm
+
+11111
+10N01
+10001
+11111

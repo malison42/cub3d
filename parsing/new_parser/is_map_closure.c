@@ -42,7 +42,7 @@ char	*create_wrapped_cols(t_game *game, char **map, int i)
 	else
 	{
 		wrapped_line[0] = '#';
-		ft_memcpy(wrapped_line + 1, map[i - 1], game->map_x + 1);
+		ft_memcpy(wrapped_line + 1, map[i - 1], game->map_x);
 		wrapped_line[wrapped_cols - 1] = '#';
 	}
 	wrapped_line[wrapped_cols] = '\0';
@@ -97,7 +97,7 @@ int	flood_fill_closure(t_game *game,char **map_wrapped, int y, int x)
 {
 	char	curent_char;
 
-	if (y < 0 || x < 0 || x >= (game->map_x + 3) || y >= (game->map_y + 3))
+	if (y < 0 || x < 0 || x >= (game->map_x + 2) || y >= (game->map_y + 2) || map_wrapped[y] == NULL || map_wrapped[y][x] == '\0')
 		return (1);
 	curent_char = map_wrapped[y][x];
 	if (curent_char == '0' || ft_isset(curent_char, "NSWE") || curent_char == ' ')

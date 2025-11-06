@@ -242,11 +242,11 @@ char	**parse_map(int fd, t_game *game)
 	map = get_normalized_map(game, map_list);
 	if (!map)
 		return (ft_lstclear(&map_list, free), NULL);
-	for (size_t i = 0; map[i] != NULL; i++)
-	{
-		printf("MAP[%zu]: %s\n", i, map[i]);
-	}
-	
+	// for (size_t i = 0; map[i] != NULL; i++)
+	// {
+	// 	printf("MAP[%zu]: %s\n", i, map[i]);
+	// }
+
 	ft_lstclear(&map_list, free); // освобождаем так как дальше лист не нужен
 	if (!is_valid_map(game, map))
 		return (NULL);
@@ -269,9 +269,9 @@ int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 	i = 0;
 	while (i < 4)
 	{
-		printf("fd =%d", game->texture->fd_texture[i]);
+		// printf("fd =%d", game->texture->fd_texture[i]);
 		game->texture->fd_texture[i] = open(game_var->texturs[i].path_texture, O_RDONLY);
-		printf("str =%s", game_var->texturs[i].path_texture);
+		// printf("str =%s", game_var->texturs[i].path_texture);
 		if (game->texture->fd_texture[i] == -1)
 		{
 			perror("file_texture");

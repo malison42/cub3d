@@ -1,0 +1,8 @@
+NO ./test_assets/valid_texture.xpm
+SO ./test_assets/valid_texture.xpm
+WE ./test_assets/valid_texture.xpm
+EA ./test_assets/valid_texture.xpm
+F 220,100,0
+C 225,30,0
+
+# no map provided

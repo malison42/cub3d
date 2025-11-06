@@ -50,10 +50,10 @@ char	**get_token_config(int fd)
 	free(str);
 	if (!tokens)
 		return (perror("malloc"), NULL);
-	for (size_t i = 0; tokens[i] != NULL; i++)
-	{
-		printf("tikens config[%ld] = %s\n", i, tokens[i]);
-	}
+	// for (size_t i = 0; tokens[i] != NULL; i++)
+	// {
+	// 	printf("tikens config[%ld] = %s\n", i, tokens[i]);
+	// }
 
 	return (tokens);
 }
