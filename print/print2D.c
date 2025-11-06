@@ -19,10 +19,8 @@ void	init_map2D(t_game *game)
 
 void recalculate_player(t_game *game)
 {
-	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale +
-						   game->map2D.scale / 2;
-	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale +
-						   game->map2D.scale / 2;
+	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale;
+	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale;
 	game->map2D.player.direction = game->player.direction;
 }
 
@@ -77,14 +75,38 @@ void	draw_ray(t_game *game, double ray)
 	}
 }
 
+void	draw_line_ray(t_game *game, double ray)
+{
+	t_wall	wall;
+	t_point	a;
+	t_point	b;
+//	t_point c;
+	
+//	printf("ququ\n");
+	wall = find_wall(game, ray);
+//	printf("cross:  %d %d\nplayer: %f %f\n", wall.x, wall.y, game->player.x, game->player.y);
+	wall.x = 1.0 * wall.x / SCALE * game->map2D.scale;
+	wall.y = 1.0 * wall.y / SCALE * game->map2D.scale;
+//	printf("cross:  %d %d\n", wall.x, wall.y);
+	a = new_point(game->map2D.player.x, game->map2D.player.y);
+//	printf("player: %d %d\n", a.x, a.y);
+//	a = new_point(0, 0);
+//	printf("ququ\n");
+	b = new_point(wall.x, wall.y);
+	line(a, b, game);
+//	printf("ququ\n");
+}
+
 void	draw_fow(t_game *game)
 {
 	double	ray;
 	
+	(void)ray;
 	ray = game->map2D.player.direction - M_PI / 6;
+//	draw_line_ray(game, game->map2D.player.direction + M_PI / 12);
 	while (ray < game->map2D.player.direction + M_PI / 6)
 	{
-		draw_ray(game, ray);
+		draw_line_ray(game, ray);
 		ray += M_PI_4 / 360;
 	}
 }
@@ -94,5 +116,6 @@ void	print_2D_map(t_game *game)
 //	init_map2D(game);
 	recalculate_player(game);
 	draw_walls(game);
+//	printf("ququ\n");
 	draw_fow(game);
 }

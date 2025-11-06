@@ -6,7 +6,8 @@ LIB_NAME	= libft.a
 SRC			= main.c \
 			parsing/parse_colors.c parsing/parse_textures.c \
 			parsing/parse_map.c parsing/parse_utils.c \
-			print/pixel.c print/print2D.c print/game.c \
+			print/pixel.c print/print2D.c print/game.c print/rays.c \
+			print/lines.c \
 			hooks.c 
 
 OBJ			= $(SRC:.c=.o)

@@ -30,7 +30,6 @@ int	main(int argc, char **argv)
 	init_game(&game);
 //	calculate_small_map(&game);
 //	printf("qw %f\n", game.player.view);
-	
 	print_2D_map(&game);
 //	draw_game(&game);
 	

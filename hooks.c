@@ -46,6 +46,7 @@ int	key_hook(int key, t_game *game)
 		game->player.direction += M_PI / 90;
 	else
 		printf("key %d\n", key);
-	draw_image(game);
+	print_2D_map(game);
+//	draw_image(game);
 	return (0);
 }
