@@ -1,19 +1,20 @@
 #include "../cub.h"
 
+// добавить пометку с осью, с которой пересекается луч
 t_wall	check_wall(t_game *game, t_point p, t_point dir)
 {
 	t_wall	wall;
 
 	wall.x = p.x;
 	wall.y = p.y;
-	if (dir.x && game->map[(p.y) / SCALE][(p.x + 5 * dir.x) / SCALE] == '1')
+	if (dir.x && game->map[(p.y) / SCALE][(p.x + 1 * dir.x) / SCALE] == '1')
 	{
 		if (dir.x > 0)
 			wall.color = new_color(195, 205, 250); // WEST
 		else
 			wall.color = new_color(195, 250, 205); // EAST
 	}
-	else if (dir.y && game->map[(p.y + 5 * dir.y) / SCALE][(p.x) / SCALE] == '1')
+	else if (dir.y && game->map[(p.y + 1 * dir.y) / SCALE][(p.x) / SCALE] == '1')
 	{
 		if (dir.y > 0)
 			wall.color = new_color(250, 250, 190); // NORTH

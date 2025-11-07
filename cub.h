@@ -29,13 +29,13 @@
 #  include "keys_linux.h"
 # endif
 
-# define A 1920
-# define B 1200
+# define A 1280
+# define B 800
 # define SIDE 20
 # define SCALE 64
 # define WALL 64
 # define COEF 277
-# define RAYS_2D 360
+# define RAYS_2D 640
 //# define SHIFT 2
 
 //relief height
