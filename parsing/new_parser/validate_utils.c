@@ -12,7 +12,10 @@ int	is_valid_sym(t_game *game, char **map, char *set)
 		while (x < game->map_x)
 		{
 			if (!ft_isset(map[y][x], set))
+			{
+				printf("Error\nInvalid symbol in map: %c\n", map[y][x]);
 				return (0);
+			}
 			x++;
 		}
 		y++;
@@ -67,8 +70,14 @@ char*	find_config(const char *str, char **config_specificers)
 int	validate_token_config(char **token_config, char **config_specificers)
 {
 	if (!find_config(token_config[0], config_specificers))
-		{ printf("123\n"); return (0);}
+	{
+		printf("Error\nInvalid config specificer: %s\n", token_config[0]); 
+		return (0);
+	}
 	if (token_config[2])
-		{ printf("\ntoken_config 2 = %s\n", token_config[1]); return (0);}
+	{
+		printf("Error\nUnnecessary token: %s\n", token_config[2]);
+		return (0);
+	}
 	return (1);
 }

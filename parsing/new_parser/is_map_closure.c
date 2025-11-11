@@ -159,10 +159,15 @@ int	is_mape_closure(t_game *game, char **map)
 		return (0);
 	if (!flood_fill_closure(game, copy_map, 0 , 0))
 	{
+		printf("Error\nMap is not closed: map is open to the outside.\n");
 		return (free_array(copy_map), 0);
 	}
 	if (!flood_fill_accessibility(game, copy_map, game->start.y + 1 , game->start.x + 1))
+	{
+		printf("Error\nMap is not enclosed: player can reach empty space at start (%d,%d).\n",
+			game->start.x, game->start.y);
 		return (free_array(copy_map), 0);
+	}
 	// if (!check_all_reachable(copy_map))
 	// 	return (free_array(copy_map), 0);
 	free_array(copy_map);

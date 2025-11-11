@@ -49,11 +49,17 @@ int validate_player_start(t_game *game, char **map)
 	{
 		count_start_pos += check_start_pos(game, y, map);
 		if (count_start_pos > 1)
+		{
+			printf("Error\nMap has multiple starting positions.\n");
 			return (0);
+		}
 		++y;
 	}
 	if (count_start_pos != 1)
+	{
+		printf("Error\nMap has no starting position.\n");
 		return (0);
+	}
 	game->player.x = game->start.x * SCALE + SCALE / 2;
 	game->player.y = game->start.y * SCALE + SCALE / 2;
 	game->player.direction = game->start.view;
