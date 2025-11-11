@@ -14,8 +14,8 @@ void	draw_image(t_game *game)
 										 &game->image.bpp,
 										 &game->image.line_size,
 										 &game->image.endian);
-	print_2D_map(game);
-	// draw_game(game);
+	//print_2D_map(game);
+	 draw_game(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
 }
 

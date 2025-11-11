@@ -2,18 +2,19 @@ NAME		= cub3D
 
 MLX_NAME	= libmlx.a
 LIB_NAME	= libft.a
+PARSING_DIR	= parsing/new_parser
 
 SRC			= main.c \
-			parsing/parse_colors.c parsing/parse_textures.c \
-			parsing/parse_map.c parsing/parse_utils.c \
 			print/pixel.c print/print2D.c  \
 			hooks.c print/game.c
 
-OBJ			= $(SRC:.c=.o)
+PARSING_SRC = $(wildcard $(PARSING_DIR)/*.c)
+
+OBJ			= $(SRC:.c=.o) $(PARSING_SRC:.c=.o)
 
 HEADER		= cub.h keys_macos.h keys_linux.h
 
-CFLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address
 LIB_DIR		= libft
 
 ifeq ($(shell uname), Darwin)

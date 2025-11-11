@@ -66,4 +66,5 @@ char	**get_normalized_map(t_game *game, t_list *map_list);
 t_list	*read_map_to_list(int fd, int *map_x);
 int validate_player_start(t_game *game, char **map);
 char	**parse_map(int fd, t_game *game);
+char	*get_line(int fd);
 #endif

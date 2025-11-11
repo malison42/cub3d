@@ -26,7 +26,22 @@ int	main(int argc, char **argv)
 	// }
 
 	t_game *game;
-	parse_data(argv[1], &game);
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (EXIT_FAILURE);
+	ft_bzero(game, sizeof(t_game));
+	game->texture = malloc(sizeof(t_textures));
+	if (!game->texture)
+	{
+		free(game);
+		return (EXIT_FAILURE);
+	}
+	printf("shcjkzxlhc\n");
+	if (!parse_game_file(game, argv, argc))
+	{
+		free(game);
+		return (EXIT_FAILURE);
+	}
 	printf("%f %f\n", game->player.x, game->player.y);
 	init_game(game);
 //	calculate_small_map(&game);

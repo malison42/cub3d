@@ -5,14 +5,15 @@
             "name": "Отладка (GDB)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/parsing/new_parser/test_parsing/test_parsing",
+            // Указываем путь к исполняемому файлу
+            "program": "${workspaceFolder}/cub3D",
             "args": [
-                // Предполагаем, что папка test_parsing не дублируется
-                "${workspaceFolder}/parsing/new_parser/test_parsing/test_map/test_3_fail_miss.cub"
+                // Указываем путь к файлу карты
+                "${workspaceFolder}/maps/subj.cub"
             ],
             "stopAtEntry": false,
-            // CWD указывает на папку, где находится исполняемый файл
-            "cwd": "${workspaceFolder}/parsing/new_parser/test_parsing", 
+            // CWD указывает на корень проекта, откуда запускается Make и где лежит cub3D
+            "cwd":  "${workspaceFolder}", 
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -23,6 +24,7 @@
                     "ignoreFailures": true
                 }
             ],
+            // Убеждаемся, что проект собран перед запуском
             "preLaunchTask": "Сборка проекта с помощью Make" 
         }
     ]

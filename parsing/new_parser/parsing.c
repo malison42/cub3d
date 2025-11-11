@@ -43,7 +43,8 @@ int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 	while (i < 4)
 	{
 		// printf("fd =%d", game->texture->fd_texture[i]);
-		game->texture->fd_texture[i] = open(game_var->texturs[i].path_texture, O_RDONLY);
+		int fd = open(game_var->texturs[i].path_texture, O_RDONLY);
+		game->texture->fd_texture[i] = fd;
 		// printf("str =%s", game_var->texturs[i].path_texture);
 		if (game->texture->fd_texture[i] == -1)
 		{

@@ -32,7 +32,7 @@
                 // "all" 
             ],
             "options": {
-                "cwd": "${workspaceFolder}/parsing/new_parser/test_parsing"
+                "cwd": "${workspaceFolder}"
             },
             "group": {
                 "kind": "build",

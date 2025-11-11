@@ -100,11 +100,11 @@ int	flood_fill_closure(t_game *game,char **map_wrapped, int y, int x)
 	if (y < 0 || x < 0 || x >= (game->map_x + 2) || y >= (game->map_y + 2) || map_wrapped[y] == NULL || map_wrapped[y][x] == '\0')
 		return (1);
 	curent_char = map_wrapped[y][x];
-	if (curent_char == '0' || ft_isset(curent_char, "NSWE") || curent_char == ' ')
+	if (curent_char == '0' || ft_isset(curent_char, "NSWE"))
 		return (0);
 	if (curent_char == '1' || curent_char == 'F')
 		return (1);
-	if (curent_char == '#')
+	if (curent_char == '#' || curent_char == ' ')
 		map_wrapped[y][x] = 'F';
 	else
 		return (0);
@@ -130,7 +130,13 @@ int check_all_reachable( char **map_wrapped)
 		while (map_wrapped[y][x])
 		{
 			if (ft_isset(map_wrapped[y][x], "0NSWE"))
+			{
+				for (size_t i = 0; map_wrapped[i] != NULL; i++)
+				{
+					printf("WRAPPED_MAP[%zu]: %s\n", i, map_wrapped[i]);
+				}
 				return(0);
+			}
 			x++;
 		}
 		y++;
@@ -143,14 +149,22 @@ int	is_mape_closure(t_game *game, char **map)
 	char	**copy_map;
 
 	copy_map = create_wrapped_map(game, map);
+
+	
+	for (size_t i = 0; copy_map[i] != NULL; i++)
+	{
+		printf("WRAPPED_MAP[%zu]: %s\n", i, copy_map[i]);
+	}
 	if (!copy_map)
 		return (0);
 	if (!flood_fill_closure(game, copy_map, 0 , 0))
+	{
 		return (free_array(copy_map), 0);
+	}
 	if (!flood_fill_accessibility(game, copy_map, game->start.y + 1 , game->start.x + 1))
 		return (free_array(copy_map), 0);
-	if (!check_all_reachable(copy_map))
-		return (free_array(copy_map), 0);
+	// if (!check_all_reachable(copy_map))
+	// 	return (free_array(copy_map), 0);
 	free_array(copy_map);
 	return (1);
 }
