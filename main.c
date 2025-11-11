@@ -13,34 +13,34 @@ void	init_game(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nEnter map filename", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
-	if (ft_strcmp(&argv[1][ft_strlen(argv[1]) - 4], ".cub"))
-	{
-		ft_putstr_fd("Error\n"
-					 "File has to be with the .cub extension", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
+	// if (argc != 2)
+	// {
+	// 	ft_putstr_fd("Error\nEnter map filename", STDERR_FILENO);
+	// 	return (EXIT_FAILURE);
+	// }
+	// if (ft_strcmp(&argv[1][ft_strlen(argv[1]) - 4], ".cub"))
+	// {
+	// 	ft_putstr_fd("Error\n"
+	// 				 "File has to be with the .cub extension", STDERR_FILENO);
+	// 	return (EXIT_FAILURE);
+	// }
 
-	t_game game;
+	t_game *game;
 	parse_data(argv[1], &game);
-	printf("%f %f\n", game.player.x, game.player.y);
-	init_game(&game);
+	printf("%f %f\n", game->player.x, game->player.y);
+	init_game(game);
 //	calculate_small_map(&game);
 //	printf("qw %f\n", game.player.view);
-	
+
 	// print_2D_map(&game);
 	// draw_game(&game);
-	draw_image(&game);
-	
-	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
-	mlx_do_key_autorepeaton(game.mlx);
+	draw_image(game);
+
+	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
+	mlx_do_key_autorepeaton(game->mlx);
 //	mlx_key_hook(game.win, key_hook, &game);
-	mlx_hook(game.win, 2, (1L << 0), key_hook, &game);
-	mlx_hook(game.win, 17, 0, close_win, &game);
+	mlx_hook(game->win, 2, (1L << 0), key_hook, game);
+	mlx_hook(game->win, 17, 0, close_win, game);
 //	mlx_hook(model.win, 4, 0, mouse_hook, &model);
-	mlx_loop(game.mlx);
+	mlx_loop(game->mlx);
 }

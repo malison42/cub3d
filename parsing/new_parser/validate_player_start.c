@@ -1,0 +1,61 @@
+#include "parsing_map.h"
+
+int	set_player(t_player *start, int x, int y, char view)
+{
+	start->x = x;
+	start->y = y;
+	if (view == 'N')
+		start->view = 3 * M_PI_2;
+	else if (view == 'S')
+		start->view = M_PI_2;
+	else if (view == 'E')
+		start->view = 0;
+	else if (view == 'W')
+		start->view = M_PI;
+	else
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	check_start_pos(t_game *game, int y, char **map)
+{
+	int x;
+	int	count_start_pos;
+
+	count_start_pos = 0;
+	x = 0;
+	while (x < game->map_x)
+	{
+		if (ft_isset(map[y][x], "NSWE"))
+		{
+			// ? Возможно стоит добавить флаг а не использовать значении данное при иницилизации
+			if (count_start_pos == 0 && game->start.view == 0) // !работет при иницилизации нулями
+				set_player(&game->start, x, y, map[y][x]);
+			count_start_pos++;
+		}
+		++x;
+	}
+	return (count_start_pos);
+}
+
+int validate_player_start(t_game *game, char **map)
+{
+	int	y;
+	int	count_start_pos;
+
+	count_start_pos = 0;
+	y = 0;
+	while (y < game->map_y)
+	{
+		count_start_pos += check_start_pos(game, y, map);
+		if (count_start_pos > 1)
+			return (0);
+		++y;
+	}
+	if (count_start_pos != 1)
+		return (0);
+	game->player.x = game->start.x * SCALE + SCALE / 2;
+	game->player.y = game->start.y * SCALE + SCALE / 2;
+	game->player.direction = game->start.view;
+	return (1);
+}

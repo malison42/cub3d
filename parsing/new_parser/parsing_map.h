@@ -61,4 +61,9 @@ int	fill_rgb_color(char *specificer, t_parsing_var *game_var, char *rgb_collors)
 int	fill_path_texture(t_parsing_var *game_var, char	*specificer, char *path_texture);
 int	is_valid_sym(t_game *game, char **map, char *set);
 int	validate_token_config(char **token_config, char **config_specificers);
+int parsing_configs(int fd, t_parsing_var *game_var);
+char	**get_normalized_map(t_game *game, t_list *map_list);
+t_list	*read_map_to_list(int fd, int *map_x);
+int validate_player_start(t_game *game, char **map);
+char	**parse_map(int fd, t_game *game);
 #endif
