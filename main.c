@@ -5,8 +5,6 @@ void	init_game(t_game *game)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
 	game->image.img = NULL;
-	// game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp, &game->image.line_size,
-										// &game->image.endian);
 	init_map2D(game);
 }
 

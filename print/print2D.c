@@ -17,21 +17,17 @@ void	init_map2D(t_game *game)
 	printf("x %.1f   y %.1f\n", game->map2D.player.x, game->map2D.player.y);
 }
 
-void recalculate_player(t_game *game)
-{
-	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale;
-	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale;
-	game->map2D.player.direction = game->player.direction;
-	// printf("player: x = %f  y = %f\n", game->player.x, game->player.y);
-	// printf("2D player: x = %f  y = %f\n", game->map2D.player.x, game->map2D.player.y);
-}
+// void recalculate_player(t_game *game)
+// {
+// 	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale;
+// 	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale;
+// 	game->map2D.player.direction = game->player.direction;
+// }
 
 void	draw_walls(t_game *game)
 {
 	int x;
 	int y;
-//	int x_pix;
-//	int y_pix;
 	int pix;
 	
 	x = 0;
@@ -43,8 +39,6 @@ void	draw_walls(t_game *game)
 		{
 			if (game->map[y / pix][x / pix] == '1')
 			{
-//				x_pix = x + game->map2D.shift_x;
-//				y_pix = y + game->map2D.shift_y;
 				put_pixel(&game->image, x, y, game->map2D.wall_color);
 			}
 			++y;
@@ -53,71 +47,68 @@ void	draw_walls(t_game *game)
 	}
 }
 
-void	draw_ray(t_game *game, double ray)
-{
-	double x;
-	double y;
-//	int x_pix;
-//	int y_pix;
-	int pix;
+// void	draw_ray(t_game *game, double ray)
+// {
+// 	double x;
+// 	double y;
+// 	int pix;
 
-	pix = game->map2D.scale;
-	x = game->map2D.player.x;
-	y = game->map2D.player.y;
-	while (x < A && x / pix < game->map_x
-			&& y < B && y / pix < game->map_y)
-	{
-		if (game->map[(int)(y / pix)][(int)(x / pix)] == '1')
-			break ;
-//				x_pix = x + game->map2D.shift_x;
-//				y_pix = y + game->map2D.shift_y;
-		put_pixel(&game->image, (int)x, (int)y, game->map2D.ray_color);
-		x += cos(ray);
-		y += sin(ray);
-	}
-}
+// 	pix = game->map2D.scale;
+// 	x = game->map2D.player.x;
+// 	y = game->map2D.player.y;
+// 	while (x < A && x / pix < game->map_x
+// 			&& y < B && y / pix < game->map_y)
+// 	{
+// 		if (game->map[(int)(y / pix)][(int)(x / pix)] == '1')
+// 			break ;
+// 		put_pixel(&game->image, (int)x, (int)y, game->map2D.ray_color);
+// 		x += cos(ray);
+// 		y += sin(ray);
+// 	}
+// }
 
 void	draw_line_ray(t_game *game, double ray)
 {
 	t_wall	wall;
 	t_point	a;
 	t_point	b;
-//	t_point c;
-	
-//	printf("ququ\n");
+
 	wall = find_wall(game, ray);
-//	printf("cross:  %d %d\nplayer: %f %f\n", wall.x, wall.y, game->player.x, game->player.y);
 	wall.x = 1.0 * wall.x / SCALE * game->map2D.scale;
 	wall.y = 1.0 * wall.y / SCALE * game->map2D.scale;
-//	printf("cross:  %d %d\n", wall.x, wall.y);
 	a = new_point(game->map2D.player.x, game->map2D.player.y);
-//	printf("player: %d %d\n", a.x, a.y);
-//	a = new_point(0, 0);
-//	printf("ququ\n");
 	b = new_point(wall.x, wall.y);
 	line(a, b, game);
-//	printf("ququ\n");
 }
 
 void	draw_fow(t_game *game)
 {
 	double	ray;
+	double	step;
 	
 	(void)ray;
-	ray = game->map2D.player.direction - M_PI / 6;
-//	draw_line_ray(game, game->map2D.player.direction + M_PI / 12);
-	while (ray < game->map2D.player.direction + M_PI / 6)
+	step = M_PI / 3 / 1440;
+	ray = game->map2D.player.direction;
+	draw_line_ray(game, game->map2D.player.direction);
+	while (ray >= game->map2D.player.direction - M_PI / 6)
 	{
 		draw_line_ray(game, ray);
-		ray += M_PI_4 / RAYS_2D;
+		ray -= step;
+	}
+	ray = game->map2D.player.direction;
+	while (ray <= game->map2D.player.direction + M_PI / 6)
+	{
+		draw_line_ray(game, ray);
+		ray += step;
 	}
 }
 
 void	print_2D_map(t_game *game)
 {
-//	init_map2D(game);
-	recalculate_player(game);
+	// recalculate_player(game);
+	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale;
+	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale;
+	game->map2D.player.direction = game->player.direction;
 	draw_walls(game);
-//	printf("ququ\n");
 	draw_fow(game);
 }

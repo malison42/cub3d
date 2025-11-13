@@ -14,8 +14,8 @@ void	draw_image(t_game *game)
 										 &game->image.bpp,
 										 &game->image.line_size,
 										 &game->image.endian);
-//	print_2D_map(game);
-	draw_game(game);
+	print_2D_map(game);
+	// draw_game(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
 }
 
@@ -59,7 +59,6 @@ int	key_hook(int key, t_game *game)
 		game->player.direction += M_PI / 90;
 	else
 		printf("key %d\n", key);
-	// print_2D_map(game);
 	draw_image(game);
 	return (0);
 }

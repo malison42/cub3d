@@ -1,6 +1,5 @@
 #include "../cub.h"
 
-// добавить пометку с осью, с которой пересекается луч
 t_wall	check_wall(t_game *game, t_point p, t_point dir, char axis)
 {
 	t_wall	wall;
