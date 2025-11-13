@@ -1,13 +1,13 @@
 #include "../cub.h"
 
 // добавить пометку с осью, с которой пересекается луч
-t_wall	check_wall(t_game *game, t_point p, t_point dir)
+t_wall	check_wall(t_game *game, t_point p, t_point dir, char axis)
 {
 	t_wall	wall;
 
 	wall.x = p.x;
 	wall.y = p.y;
-	if (dir.x && game->map[(p.y) / SCALE][(p.x + 1 * dir.x) / SCALE] == '1')
+	if (axis == 'x' && dir.x && game->map[(p.y) / SCALE][(p.x + 1 * dir.x) / SCALE] == '1')
 	{
 		if (dir.x > 0)
 			wall.color = new_color(195, 205, 250); // WEST
@@ -42,7 +42,7 @@ t_wall	straight_line(t_game *game, double ray, t_point dir)
 		point = game->player.x / SCALE + (dir.x > 0);
 		while (wall.color.r < 0 && point > 0 && point < game->map_x)
 		{
-			wall = check_wall(game, new_point(point * SCALE, game->player.y), dir);
+			wall = check_wall(game, new_point(point * SCALE, game->player.y), dir, 'x');
 			point += dir.x;
 		}
 	}
@@ -51,7 +51,7 @@ t_wall	straight_line(t_game *game, double ray, t_point dir)
 		point = game->player.y / SCALE + (dir.y > 0);
 		while (wall.color.r < 0 && point > 0 && point < game->map_y)
 		{
-			wall = check_wall(game, new_point(game->player.x, point * SCALE), dir);
+			wall = check_wall(game, new_point(game->player.x, point * SCALE), dir, 'y');
 			point += dir.y;
 		}
 	}
@@ -79,12 +79,12 @@ t_wall	inclined_line(t_game *game, double ray, t_point dir)
 		y.x = game->player.x + (y.y - game->player.y) / tan(ray);
 		if (fabs(y.y - game->player.y) < fabs(x.y - game->player.y))
 		{
-			wall = check_wall(game, y, dir);
+			wall = check_wall(game, y, dir, 'y');
 			line.y += dir.y;
 		}
 		else
 		{
-			wall = check_wall(game, x, dir);
+			wall = check_wall(game, x, dir, 'x');
 			line.x += dir.x;
 		}
 		if (wall.color.r >= 0)
