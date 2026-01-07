@@ -31,20 +31,13 @@
 
 # define A 1280
 # define B 800
+# define C 1200
+# define D 800
 # define SIDE 20
 # define SCALE 64
 # define WALL 64
 # define COEF 277
 # define RAYS_2D 640
-//# define SHIFT 2
-
-//relief height
-// # define H_BLUE 5
-// # define H_WHITE 10
-// # define H_GREEN 20
-// # define H_YELLOW 50
-// # define H_ORANGE 100
-// # define H_RED 150
 
 //messages
 // # define MESSAGE_WRONG_ARGS "Wrong number of arguments"
@@ -85,8 +78,8 @@ typedef struct s_player
 
 typedef struct s_wall
 {
-	int		x;
-	int 	y;
+	double	x;
+	double	y;
 	t_color	color;
 }	t_wall;
 
