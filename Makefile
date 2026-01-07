@@ -3,12 +3,11 @@ NAME		= cub3D
 MLX_NAME	= libmlx.a
 LIB_NAME	= libft.a
 
-SRC			= main.c \
+SRC			= main.c init.c hooks.c \
 			parsing/parse_colors.c parsing/parse_textures.c \
 			parsing/parse_map.c parsing/parse_utils.c \
 			print/pixel.c print/print2D.c print/game.c print/rays.c \
-			print/lines.c \
-			hooks.c 
+			print/lines.c 
 
 OBJ			= $(SRC:.c=.o)
 

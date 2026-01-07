@@ -100,6 +100,47 @@ t_ray	straight_line2(t_game *game, double ray, t_point dir)
 	return (collision);
 }
 
+t_ray	straight_line3(t_game *game, double ray, t_point dir)
+{
+	int		step_y;
+	int 	step_x;
+	t_ray	collision;
+	
+	
+	(void)ray;
+	step_x = game->player.x / SCALE * SCALE;
+	step_y = game->player.y / SCALE * SCALE;
+	if (dir.y == 0)
+	{
+		while (step_x >= 0 && step_x < game->walls->x_size)
+		{
+			if (game->walls->pix[step_y][step_x] == 1)
+			{
+				collision.y = game->player.y;
+				collision.x = step_x;
+				return (collision);
+			}
+			step_x += dir.x;
+		}
+	}
+	else
+	{
+		while (step_y >= 0 && step_y < game->walls->y_size)
+		{
+			if (game->walls->pix[step_y][step_x] == 1)
+			{
+				collision.x = game->player.x;
+				collision.y = step_y;
+				return (collision);
+			}
+			step_y += dir.y;
+		}
+	}
+	collision.x = 0;
+	collision.y = 0;
+	return (collision);
+}
+
 double	distance(t_ray a, t_ray b)
 {
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
@@ -285,4 +326,22 @@ t_wall	find_wall(t_game *game, double ray)
 	else
 		collision = (inclined_line2(game, ray, dir));
 	return (wall_color(game, dir, collision));
+}
+
+t_ray	find_wall3(t_game *game, double ray)
+{
+	t_point dir;
+	t_ray	collision;
+
+	dir.x = (cos(ray) > 0) - (cos(ray) < 0);
+	dir.y = (sin(ray) > 0) - (sin(ray) < 0);
+	if (cos(ray) == cos(3 * M_PI_2))
+		dir.x = 0;
+	if (sin(ray) == sin(M_PI))
+		dir.y = 0;
+	if (dir.x == 0 || dir.y == 0)
+		collision = (straight_line3(game, ray, dir));
+	else
+		collision = (inclined_line2(game, ray, dir));
+	return (collision);
 }

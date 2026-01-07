@@ -33,7 +33,7 @@
 # define B 800
 # define C 1200
 # define D 800
-# define SIDE 20
+// # define SIDE 20
 # define SCALE 64
 # define WALL 64
 # define COEF 277
@@ -99,28 +99,37 @@ typedef struct s_ray
 	double	direction;
 }	t_ray;
 
+typedef struct s_walls_array
+{
+	char	**pix;
+	int		x_size;
+	int		y_size;
+}	t_walls_array;
+
 typedef struct s_map2D
 {
-	int		scale;
-	t_color	wall_color;
-	t_color	ray_color;
-	t_ray	player;
-	int		shift_x;
-	int 	shift_y;
+	int				scale;
+	t_color			wall_color;
+	t_color			ray_color;
+	t_ray			player;
+	int				shift_x;
+	int 			shift_y;
+	t_walls_array	*walls;
 }	t_map2D;
 
 typedef struct s_game
 {
-	void 		*mlx;
-	void 		*win;
-	t_image 	image;
-	t_textures	*texture;
-	int			map_x;
-	int			map_y;
-	char		**map;
-	t_player	start;
-	t_map2D		map2D;
-	t_ray		player;
+	void 			*mlx;
+	void 			*win;
+	t_image 		image;
+	t_textures		*texture;
+	int				map_x;
+	int				map_y;
+	char			**map;
+	t_walls_array	*walls;
+	t_player		start;
+	t_map2D			map2D;
+	t_ray			player;
 }	t_game;
 
 //parsing
@@ -163,5 +172,10 @@ t_wall	find_wall(t_game *game, double ray);
 void	line(t_point a, t_point b, t_game *game);
 
 void	draw_image(t_game *game);
+
+void	init_game(t_game *game);
+
+t_ray recalculate_point(t_game *game, t_ray point);
+t_ray	find_wall3(t_game *game, double ray);
 
 #endif

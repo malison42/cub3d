@@ -1,12 +1,12 @@
 #include "cub.h"
 
-void	init_game(t_game *game)
-{
-	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, A, B, "GAME");
-	game->image.img = NULL;
-	init_map2D(game);
-}
+// void	init_game(t_game *game)
+// {
+// 	game->mlx = mlx_init();
+// 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
+// 	game->image.img = NULL;
+// 	init_map2D(game);
+// }
 
 void	draw_image(t_game *game)
 {
@@ -40,6 +40,7 @@ int	main(int argc, char **argv)
 	parse_data(argv[1], &game);
 	printf("%f %f\n", game.player.x, game.player.y);
 	init_game(&game);
+	// need to check initialization success
 	draw_image(&game);
 	
 	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
