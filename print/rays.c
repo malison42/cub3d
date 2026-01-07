@@ -120,7 +120,7 @@ t_ray	straight_line3(t_game *game, double ray, t_point dir)
 				collision.x = step_x;
 				return (collision);
 			}
-			step_x += dir.x;
+			step_x += dir.x * SCALE;
 		}
 	}
 	else
@@ -133,7 +133,7 @@ t_ray	straight_line3(t_game *game, double ray, t_point dir)
 				collision.y = step_y;
 				return (collision);
 			}
-			step_y += dir.y;
+			step_y += dir.y * SCALE;
 		}
 	}
 	collision.x = 0;
@@ -214,6 +214,45 @@ t_ray	inclined_line2(t_game *game, double ray, t_point dir)
 //			break ;
 //	}
 //	return (wall);
+}
+
+t_ray	inclined_line3(t_game *game, double ray, t_point dir)
+{
+	t_ray collision_x;
+	t_ray collision_y;
+	int step_y;
+	int	step_x;
+
+	step_x = (game->player.x / SCALE + (dir.x > 0)) * SCALE;
+	step_y = (game->player.y / SCALE + (dir.y > 0)) * SCALE;
+	while (1)
+	{
+		if (game->walls->pix[step_y][step_x] == 1)
+		{
+			collision_x.x = step_x;
+			collision_x.y = game->player.y + tan(ray) * (collision_x.x - game->player.x);
+			break ;
+		}
+		step_x += dir.x * SCALE;
+	}
+	
+	step_x = game->player.x / SCALE + (dir.x > 0);
+	step_y = game->player.y / SCALE + (dir.y > 0);
+	while (1)
+	{
+		if (game->map[step_y][step_x] == '1')
+		{
+			collision_y.y = (step_y + (dir.y < 0)) * SCALE;
+			collision_y.x = game->player.x + (collision_y.y - game->player.y) / tan(ray);
+			break ;
+		}
+		step_y += dir.y;
+	}
+	
+	if (distance(game->player, collision_x) < distance(game->player, collision_y))
+		return (collision_x);
+	else
+		return (collision_y);
 }
 
 t_wall	inclined_line(t_game *game, double ray, t_point dir)

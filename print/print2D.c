@@ -105,12 +105,12 @@ void	draw_fow(t_game *game)
 	
 	(void)ray;
 	ray = game->map2D.player.direction - M_PI / 6;
-	// draw_line_ray(game, game->map2D.player.direction);
-	while (ray < game->map2D.player.direction + M_PI / 6)
-	{
-		draw_line_ray(game, ray);
-		ray += M_PI_4 / RAYS_2D;
-	}
+	draw_line_ray(game, game->map2D.player.direction);
+	// while (ray < game->map2D.player.direction + M_PI / 6)
+	// {
+	// 	draw_line_ray(game, ray);
+	// 	ray += M_PI_4 / RAYS_2D;
+	// }
 }
 
 void	print_2D_map(t_game *game)
