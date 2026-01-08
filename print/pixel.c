@@ -12,8 +12,10 @@ void	put_pixel(t_image *img, int x, int y, t_color color)
 {
 	char	*dst;
 	
+	if (y >= 1024)
+		printf("x %d y %d\n", x, y);
 	dst = img->addr + (y * img->line_size + x * (img->bpp / 8));
-	*(unsigned int*)dst = create_color(color);
+	*(unsigned int *)dst = create_color(color);
 }
 
 t_point	new_point(int x, int y)

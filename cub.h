@@ -80,8 +80,10 @@ typedef struct s_wall
 {
 	double	x;
 	double	y;
-	t_color	color;
+	char	face;
 }	t_wall;
+
+
 
 typedef struct s_image
 {
@@ -99,12 +101,14 @@ typedef struct s_ray
 	double	direction;
 }	t_ray;
 
-typedef struct s_walls_array
+typedef struct s_collision
 {
-	char	**pix;
-	int		x_size;
-	int		y_size;
-}	t_walls_array;
+	t_ray	dir;
+	t_point	step;
+	t_point map;
+	t_ray	delta;
+	t_ray	side;
+}	t_collision;
 
 typedef struct s_map2D
 {
@@ -114,7 +118,6 @@ typedef struct s_map2D
 	t_ray			player;
 	int				shift_x;
 	int 			shift_y;
-	t_walls_array	*walls;
 }	t_map2D;
 
 typedef struct s_game
@@ -126,7 +129,6 @@ typedef struct s_game
 	int				map_x;
 	int				map_y;
 	char			**map;
-	t_walls_array	*walls;
 	t_player		start;
 	t_map2D			map2D;
 	t_ray			player;
@@ -177,6 +179,10 @@ void	init_game(t_game *game);
 
 t_ray recalculate_point(t_game *game, t_ray point);
 t_ray	find_wall3(t_game *game, double ray);
-t_ray	find_collision(t_game *game, double ray);
+t_wall	find_collision(t_game *game, double ray);
+double	fdistance(t_wall a, t_ray b);
+void    init_collision_structure(t_game *game, t_collision *c);
+t_color define_color(char face);
+
 
 #endif
