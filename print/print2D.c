@@ -1,34 +1,5 @@
 #include "../cub.h"
 
-// void	init_map2D(t_game *game)
-// {
-// 	game->map2D.scale = ft_min((int)((A) / game->map_x),
-// 							  (int)((B) / game->map_y));
-// 	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale +
-// 							game->map2D.scale / 2;
-// 	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale +
-// 							game->map2D.scale / 2;
-// 	game->map2D.player.direction = game->player.direction;
-// 	game->map2D.shift_x = (A - game->map_x * game->map2D.scale) / 2;
-// 	game->map2D.shift_y = (B - game->map_y * game->map2D.scale) / 2;
-// 	game->map2D.wall_color = new_color(200, 200, 200);
-// 	game->map2D.ray_color = new_color(150, 150, 0);
-// 	printf("scale %d\n", game->map2D.scale);
-// 	printf("x %.1f   y %.1f\n", game->map2D.player.x, game->map2D.player.y);
-// }
-
-t_ray recalculate_point(t_game *game, t_ray point)
-{
-	t_ray	new_point;
-
-	new_point.x = point.x / SCALE * game->map2D.scale;
-	new_point.y = point.y / SCALE * game->map2D.scale;
-	new_point.direction = game->player.direction;
-	// printf("player: x = %f  y = %f\n", game->player.x, game->player.y);
-	// printf("2D player: x = %f  y = %f\n", game->map2D.player.x, game->map2D.player.y);
-	return (new_point);
-}
-
 void	draw_walls(t_game *game)
 {
 	int x;
@@ -40,7 +11,7 @@ void	draw_walls(t_game *game)
 		y = 0;
 		while (y < game->map2D.walls->y_size)
 		{
-			if (game->map2D.walls->pix[y][x])
+			if (game->map2D.walls->pix[y][x] && y % game->map2D.scale)
 			{
 				put_pixel(&game->image, x, y, game->map2D.wall_color);
 			}
@@ -50,74 +21,124 @@ void	draw_walls(t_game *game)
 	}
 }
 
-void	draw_ray(t_game *game, double ray)
+t_ray	straight_ray(t_game *game, t_ray dir, t_point step)
 {
-	double x;
-	double y;
-//	int x_pix;
-//	int y_pix;
-	int pix;
+	t_point	map;
 
-	pix = game->map2D.scale;
-	x = game->map2D.player.x;
-	y = game->map2D.player.y;
-	while (x < A && x / pix < game->map_x
-			&& y < B && y / pix < game->map_y)
+	map.x = game->player.x;
+	map.y = game->player.y;
+	while (game->map[map.y][map.x] != '1')
 	{
-		if (game->map[(int)(y / pix)][(int)(x / pix)] == '1')
-			break ;
-//				x_pix = x + game->map2D.shift_x;
-//				y_pix = y + game->map2D.shift_y;
-		put_pixel(&game->image, (int)x, (int)y, game->map2D.ray_color);
-		x += cos(ray);
-		y += sin(ray);
+		map.y += step.y;
+		map.x += step.x;
 	}
+
+	t_ray	point;
+	if (dir.x == 0)
+	{
+		point.x = game->player.x;
+		point.y = map.y + (step.y < 0);
+	}
+	else
+	{
+		point.x = map.x + (step.x < 0);
+		point.y = game->player.y;
+	}
+	return (point);
 }
 
-void	draw_line_ray(t_game *game, double ray)
+t_ray	inclined_ray(t_game *game, t_ray dir, t_point step)
 {
-	// t_wall	wall;
-	t_point	a;
-	t_point	b;
+	t_point	map;
+	t_ray	delta;
+	t_ray	side;
+
+	map.x = game->player.x;
+	map.y = game->player.y;
+	delta.x = fabs(1 / dir.x);
+	delta.y = fabs(1 / dir.y);
+
+	if (step.x < 0)
+		side.x = (game->player.x - map.x) * delta.x;
+	else
+		side.x = (1 - game->player.x + map.x) * delta.x;
+	if (step.y < 0)
+		side.y = (game->player.y - map.y) * delta.y;
+	else
+		side.y = (1 - game->player.y + map.y) * delta.y;
+
+	char face = 0;
+	while (game->map[map.y][map.x] != '1')
+	{
+		if (side.x < side.y)
+		{
+			side.x += delta.x;
+			map.x += step.x;
+			face = 'X';
+		}
+		else
+		{
+			side.y += delta.y;
+			map.y += step.y;
+			face = 'Y';
+		}
+	}
+
+	double	t;
+	if (face == 'X')
+		t = (map.x - game->player.x + (step.x < 0)) / dir.x;
+	else
+		t = (map.y - game->player.y + (step.y < 0)) / dir.y;
+
+	t_ray	point;
+	point.x = game->player.x + dir.x * t;
+	point.y = game->player.y + dir.y * t;
+	return (point);
+}
+
+t_ray	find_collision(t_game *game, double ray)
+{
+	t_ray	dir;
+	t_point	step;
 	t_ray	collision;
-//	t_point c;
-	
-//	printf("ququ\n");
-	// wall = find_wall(game, ray);
-//	printf("cross:  %d %d\nplayer: %f %f\n", wall.x, wall.y, game->player.x, game->player.y);
-	// wall.x = 1.0 * wall.x / SCALE * game->map2D.scale;
-	// wall.y = 1.0 * wall.y / SCALE * game->map2D.scale;
-	collision = recalculate_point(game, find_wall3(game, ray));
-//	printf("cross:  %d %d\n", wall.x, wall.y);
-	a = new_point(game->map2D.player.x, game->map2D.player.y);
-//	printf("player: %d %d\n", a.x, a.y);
-//	a = new_point(0, 0);
-//	printf("ququ\n");
-	b = new_point(collision.x, collision.y);
-	// printf("a.x %d a.y %d\n b.x %d b.y %d\n", a.x, a.y, b.x, b.y);
-	line(a, b, game);
-//	printf("ququ\n");
+
+	dir.x = cos(ray);
+	dir.y = sin(ray);
+	if (cos(ray) == cos(3 * M_PI_2))
+		dir.x = 0;
+	if (sin(ray) == sin(M_PI))
+		dir.y = 0;
+	step.x = (dir.x > 0) - (dir.x < 0);
+	step.y = (dir.y > 0) - (dir.y < 0);
+	if (dir.x == 0 || dir.y == 0)
+		collision = (straight_ray(game, dir, step));
+	else
+		collision = (inclined_ray(game, dir, step));
+	return (collision);
 }
 
 void	draw_fow(t_game *game)
 {
 	double	ray;
+	t_ray	collision;
+	t_point	a;
+	t_point	b;
 	
 	(void)ray;
-	ray = game->map2D.player.direction - M_PI / 6;
-	draw_line_ray(game, game->map2D.player.direction);
-	// while (ray < game->map2D.player.direction + M_PI / 6)
-	// {
-	// 	draw_line_ray(game, ray);
-	// 	ray += M_PI_4 / RAYS_2D;
-	// }
+	a = new_point(game->player.x * game->map2D.scale, game->player.y * game->map2D.scale);
+	ray = game->player.direction - M_PI / 6;
+	while (ray < game->player.direction + M_PI / 6)
+	{
+		collision = find_collision(game, ray);
+		b = new_point(collision.x * game->map2D.scale, collision.y * game->map2D.scale);
+		line(a, b, game);
+		ray += M_PI_4 / RAYS;
+	}
 }
 
 void	print_2D_map(t_game *game)
 {
-//	init_map2D(game);
-	game->map2D.player = recalculate_point(game, game->player);
+	// game->map2D.player = recalculate_point(game, game->player);
 	draw_walls(game);
-//	printf("ququ\n");
 	draw_fow(game);
 }

@@ -1,12 +1,5 @@
 #include "cub.h"
 
-// void	init_game(t_game *game)
-// {
-// 	game->mlx = mlx_init();
-// 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
-// 	game->image.img = NULL;
-// 	init_map2D(game);
-// }
 
 void	draw_image(t_game *game)
 {
@@ -17,8 +10,9 @@ void	draw_image(t_game *game)
 										 &game->image.bpp,
 										 &game->image.line_size,
 										 &game->image.endian);
-	print_2D_map(game);
-//	draw_game(game);
+	// print_2D_map(game);
+	draw_game(game);
+	printf("qw\n");
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
 }
 

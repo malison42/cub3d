@@ -14,7 +14,7 @@ void	draw_ceiling(t_game *game, int x, int h)
 	}
 }
 
-void	draw_w(t_game *game, int x, int h, t_color color)
+void	draw_wall_line(t_game *game, int x, int h, t_color color)
 {
 	int	y;
 	int	finish;
@@ -42,46 +42,30 @@ void	draw_floor(t_game *game, int x, int h)
 	}
 }
 
-void	draw_line(t_game *game, double ray, int pix_x)
-{
-	double	x;
-	double	y;
-	double	dist;
-	double	height;
 
-	x = game->player.x;
-	y = game->player.y;
-	while (x > 0 && x / SCALE < game->map_x
-		   && y > 0 && y / SCALE < game->map_y)
-	{
-		if (game->map[(int)(y / SCALE)][(int)(x / SCALE)] == '1')
-		{
-			dist = sqrt(pow(x - game->player.x, 2) + pow(y - game->player.y, 2));
-			height = WALL / dist * COEF;
-//			printf("h %f\n", height);
-			draw_ceiling(game, pix_x, height);
-			draw_w(game, pix_x, height, new_color(255, 255, 255));
-			draw_floor(game, pix_x, height);
-			break ;
-		}
-		x += cos(ray);
-		y += sin(ray);
-	}
+double	fdistance(t_ray a, t_ray b)
+{
+	a.x *= SCALE;
+	a.y *= SCALE;
+	b.x *= SCALE;
+	b.y *= SCALE;
+	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
 
-void	draw_line2(t_game *game, double ray, int pix_x)
+void	draw_vertical_line(t_game *game, double ray, int x)
 {
-	double	dist;
 	double	height;
-	t_wall	wall;
-	
-	wall = find_wall(game, ray);
-	dist = sqrt(pow(wall.x - game->player.x, 2) + pow(wall.y - game->player.y, 2));
+	double	dist;
+	t_ray	collision;
+
+	collision = find_collision(game, ray);
+	// printf("collision x %f  y %f\n", collision.x, collision.y);
+	dist = fdistance(collision, game->player);
 	height = WALL / dist * COEF;
-//			printf("h %f\n", height);
-	draw_ceiling(game, pix_x, height);
-	draw_w(game, pix_x, height, wall.color);
-	draw_floor(game, pix_x, height);
+	draw_ceiling(game, x, height);
+// printf("h %f\n", height);
+	draw_wall_line(game, x, height, new_color(160, 160, 160));
+	draw_floor(game, x, height);
 }
 
 void	draw_game(t_game *game)
@@ -89,12 +73,16 @@ void	draw_game(t_game *game)
 	double	ray;
 	int 	x;
 	
+	printf("\nredraw   x %f y %f\n", game->player.x, game->player.y);
 	ray = game->player.direction - M_PI / 6;
 	x = 0;
 	while (x < A)
 	{
-		draw_line2(game, ray, x);
+		// draw_line2(game, ray, x);
+		// collision = find_collision(game, ray);
+		draw_vertical_line(game, ray, x);
 		ray += M_PI / 3 / A;
 		++x;
 	}
+	printf("redraw   x %f y %f\n", game->player.x, game->player.y);
 }

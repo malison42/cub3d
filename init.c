@@ -86,4 +86,5 @@ void	init_game(t_game *game)
 	game->image.img = NULL;
 	init_map2D(game);
 	init_walls(game);
+	printf("player %f %f\n", game->player.x, game->player.y);
 }

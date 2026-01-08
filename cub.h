@@ -31,13 +31,13 @@
 
 # define A 1280
 # define B 800
-# define C 1200
+# define C 1280
 # define D 800
 // # define SIDE 20
 # define SCALE 64
 # define WALL 64
 # define COEF 277
-# define RAYS_2D 640
+# define RAYS 640
 
 //messages
 // # define MESSAGE_WRONG_ARGS "Wrong number of arguments"
@@ -177,5 +177,6 @@ void	init_game(t_game *game);
 
 t_ray recalculate_point(t_game *game, t_ray point);
 t_ray	find_wall3(t_game *game, double ray);
+t_ray	find_collision(t_game *game, double ray);
 
 #endif

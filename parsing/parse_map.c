@@ -74,8 +74,10 @@ void	parse_player(t_game *game)
 		}
 		++i;
 	}
-	game->player.x = game->start.x * SCALE + SCALE / 2;
-	game->player.y = game->start.y * SCALE + SCALE / 2;
+	// game->player.x = game->start.x * SCALE + SCALE / 2;
+	// game->player.y = game->start.y * SCALE + SCALE / 2;
+	game->player.x = game->start.x + 0.5;
+	game->player.y = game->start.y + 0.5;
 	game->player.direction = game->start.view;
 }
 
