@@ -36,3 +36,15 @@ t_color define_color(char face)
     else
         return (new_color(160, 160, 160));
 }
+
+void    define_surface(t_game *game, t_wall *collision)
+{
+    if (collision->face == 'X' && game->player.x < collision->x)
+		collision->face = 'W';
+	else if (collision->face == 'X' && game->player.x > collision->x)
+		collision->face = 'E';
+	else if (collision->face == 'Y' && game->player.y < collision->y)
+		collision->face = 'S';
+	else
+		collision->face = 'N';
+}

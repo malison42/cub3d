@@ -183,6 +183,7 @@ t_wall	find_collision(t_game *game, double ray);
 double	fdistance(t_wall a, t_ray b);
 void    init_collision_structure(t_game *game, t_collision *c);
 t_color define_color(char face);
+void    define_surface(t_game *game, t_wall *c);
 
 
 #endif

@@ -2,8 +2,6 @@
 
 t_wall	straight_ray(t_game *game, t_collision *c)
 {
-	// t_point	map;
-
 	c->map.x = game->player.x;
 	c->map.y = game->player.y;
 	while (game->map[c->map.y][c->map.x] != '1')
@@ -75,13 +73,6 @@ t_wall	find_collision(t_game *game, double ray)
 		collision = (straight_ray(game, &c));
 	else
 		collision = (inclined_ray(game, &c));
-	if (collision.face == 'X' && game->player.x < collision.x)
-		collision.face = 'W';
-	else if (collision.face == 'X' && game->player.x > collision.x)
-		collision.face = 'E';
-	else if (collision.face == 'Y' && game->player.y < collision.y)
-		collision.face = 'S';
-	else
-		collision.face = 'N';
+	define_surface(game, &collision);
 	return (collision);
 }
