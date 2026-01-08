@@ -5,6 +5,19 @@ int	close_win(void)
 	exit(0);
 }
 
+static int	isobstacle(t_game *game, double x, double y)
+{
+	if (game->map[(int)(y + 0.4)][(int)(x)] == '1')
+		return (1);
+	if (game->map[(int)(y - 0.4)][(int)(x)] == '1')
+		return (1);
+	if (game->map[(int)(y)][(int)(x + 0.4)] == '1')
+		return (1);
+	if (game->map[(int)(y)][(int)(x - 0.4)] == '1')
+		return (1);
+	return (0);
+}
+
 void	walk(t_game *game, int sign, int axis)
 {
 	double	x;
@@ -20,7 +33,8 @@ void	walk(t_game *game, int sign, int axis)
 		x = game->player.x - sign * sin(game->player.direction) / 10;
 		y = game->player.y + sign * cos(game->player.direction) / 10;
 	}
-	if (game->map[(int)(y)][(int)(x)] != '1')
+	// if (game->map[(int)(y)][(int)(x)] != '1')
+	if (!isobstacle(game, x, y))
 	{
 		game->player.x = x;
 		game->player.y = y;
@@ -46,7 +60,7 @@ int	key_hook(int key, t_game *game)
 		game->player.direction += M_PI / 90;
 	else
 		printf("key %d\n", key);
-	
+
 	draw_image(game);
 	return (0);
 }
