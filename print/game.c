@@ -45,7 +45,7 @@ void	draw_wall_line(t_game *game, int x, int h, t_wall *collision)
 	y = 0;
 	while (start + y < finish)
 	{
-		color = get_color_from_texture(x_text, 1.0 * y / h, game->t);
+		color = get_color_from_texture(x_text, 1.0 * y / h, define_texture(collision->face, game->texture));
 		put_pixel(&game->image, x, start + y, color);
 		// printf("x %f y %f\n", x_text, 1.0 * y / h);
 		++y;

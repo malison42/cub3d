@@ -53,15 +53,17 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
-typedef struct s_textures
-{
-	int		north;
-	int		south;
-	int		west;
-	int		east;
-	t_color	floor;
-	t_color	ceiling;
-}	t_textures;
+
+
+// typedef struct s_textures
+// {
+// 	int		north;
+// 	int		south;
+// 	int		west;
+// 	int		east;
+// 	t_color	floor;
+// 	t_color	ceiling;
+// }	t_textures;
 
 typedef struct s_point
 {
@@ -110,6 +112,23 @@ typedef struct s_collision
 	t_ray	side;
 }	t_collision;
 
+typedef struct s_texture
+{
+	t_image	image;
+	int		width;
+	int		height;
+}	t_texture;
+
+typedef struct s_textures
+{
+	t_texture	*north;
+	t_texture	*south;
+	t_texture	*west;
+	t_texture	*east;
+	t_color	floor;
+	t_color	ceiling;
+}	t_textures;
+
 typedef struct s_map2D
 {
 	int				scale;
@@ -119,13 +138,6 @@ typedef struct s_map2D
 	int				shift_x;
 	int 			shift_y;
 }	t_map2D;
-
-typedef struct s_texture
-{
-	t_image	image;
-	int		width;
-	int		height;
-}	t_texture;
 
 typedef struct s_game
 {
@@ -139,7 +151,6 @@ typedef struct s_game
 	t_player		start;
 	t_map2D			map2D;
 	t_ray			player;
-	t_texture		*t;
 }	t_game;
 
 
@@ -149,9 +160,9 @@ int		parse_data(char *filepath, t_game *game);
 void	free_tokens(char **tokens);
 char	**parse_tokens(int fd);
 char	***read_lines(int fd);
-int		parse_wall(char ***lines, char	*orientation);
+t_texture*		parse_wall(char ***lines, char	*orientation, t_game *game);
 t_color	parse_color(char ***lines, char *surface);
-int		parse_textures(int fd, t_textures *tex);
+int		parse_textures(int fd, t_textures *tex, t_game *game);
 
 t_color	new_color(int r, int g, int b);
 char	*get_line(int fd);
@@ -200,5 +211,7 @@ t_texture   *create_texture(t_game *game, char *filename);
 unsigned int get_color_from_texture(double x, double y, t_texture *texture);
 void    destroy_texture(t_game *game, t_texture *texture);
 double	find_x_for_texture(t_wall *collision);
+
+t_texture	*define_texture(char face, t_textures *text);
 
 #endif

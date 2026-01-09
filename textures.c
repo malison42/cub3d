@@ -8,7 +8,7 @@ t_texture   *create_texture(t_game *game, char *filename)
     if (!texture) {} // error malloc
     texture->image.img = mlx_xpm_file_to_image(game->mlx, filename, \
                                             &texture->width, &texture->height);
-    if (!texture->image.img) {} //error mlx
+	if (!texture->image.img) {printf("error\n");} //error mlx
     texture->image.addr = mlx_get_data_addr(texture->image.img, \
                                             &texture->image.bpp, \
                                             &texture->image.line_size, \
@@ -26,6 +26,18 @@ unsigned int get_color_from_texture(double x, double y, t_texture *texture)
 	y_text = (int)(texture->height * y);
 	pos = texture->image.addr + (y_text * texture->image.line_size + x_text * 4);
 	return (*(unsigned int *)pos);
+}
+
+t_texture	*define_texture(char face, t_textures *text)
+{
+	if (face == 'N')
+		return (text->north);
+	else if (face == 'W')
+		return (text->west);
+	else if (face == 'S')
+		return (text->south);
+	else
+		return (text->east);
 }
 
 void    destroy_texture(t_game *game, t_texture *texture)

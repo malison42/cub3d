@@ -30,9 +30,11 @@ int	main(int argc, char **argv)
 	}
 
 	t_game game;
-	parse_data(argv[1], &game);
-	printf("%f %f\n", game.player.x, game.player.y);
 	init_game(&game);
+	parse_data(argv[1], &game);
+	init_map2D(&game);
+	printf("%f %f\n", game.player.x, game.player.y);
+
 	// need to check initialization success
 	draw_image(&game);
 	

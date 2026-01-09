@@ -1,7 +1,7 @@
-NO fdf.h
-SO fdf.h
-WE fdf.h
-EA fdf.h
+NO /home/tskubits/projects/cub3d/textures/ground.xpm
+SO /home/tskubits/projects/cub3d/textures/leaves.xpm
+WE /home/tskubits/projects/cub3d/textures/rocks.xpm
+EA /home/tskubits/projects/cub3d/textures/waves.xpm
 
 F 220,100,0
 C 225,30,0

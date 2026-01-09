@@ -93,7 +93,7 @@ int	parse_data(char *filepath, t_game *game)
 	tex = malloc(sizeof(t_textures));
 	if (!tex)
 		return (perror("malloc"), close(fd), 1);
-	parse_textures(fd, tex);
+	parse_textures(fd, tex, game);
 	game->texture = tex;
 	game->map = parse_map(fd, game);
 	parse_player(game);
