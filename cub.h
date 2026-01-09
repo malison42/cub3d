@@ -31,13 +31,13 @@
 
 # define A 1280
 # define B 800
-# define C 1280
-# define D 800
+# define C A / 5
+# define D B / 5
 // # define SIDE 20
 # define SCALE 64
 # define WALL 64
-# define COEF 277
-# define RAYS 640
+# define COEF 1108
+# define RAYS 1280
 
 //messages
 // # define MESSAGE_WRONG_ARGS "Wrong number of arguments"
@@ -137,6 +137,7 @@ typedef struct s_map2D
 	t_ray			player;
 	int				shift_x;
 	int 			shift_y;
+	t_image			image;
 }	t_map2D;
 
 typedef struct s_game

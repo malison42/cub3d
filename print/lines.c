@@ -22,7 +22,7 @@ void	line_x(t_point a, t_point b, t_game *game)
 	t_point	c;
 	double	k;
 	int		i;
-	char	*dst;
+	// char	*dst;
 	int		sign_i;
 
 	k = 1.0 * abs(b.y - a.y) / abs(b.x - a.x);
@@ -36,10 +36,11 @@ void	line_x(t_point a, t_point b, t_game *game)
 			c.y += sign_i;
 		if (c.x > 0 && c.x < A && c.y > 0 && c.y < B)
 		{
-			dst = game->image.addr
-				+ (((int)c.y) * game->image.line_size + ((int)c.x) * (game->image.bpp / 8));
-//			c.color[0] = fraction_color(a, b, fract(a.x, b.x, c.x), col);
-			*(unsigned int *)dst = create_color(game->map2D.ray_color);
+			put_pixel(&game->map2D.image, c.x + game->map2D.shift_x, c.y + game->map2D.shift_y, create_color(game->map2D.ray_color));
+// 			dst = game->image.addr
+// 				+ (((int)c.y) * game->image.line_size + ((int)c.x) * (game->image.bpp / 8));
+// //			c.color[0] = fraction_color(a, b, fract(a.x, b.x, c.x), col);
+// 			*(unsigned int *)dst = create_color(game->map2D.ray_color);
 		}
 		c.x += 1 * (b.x - a.x > 0) - 1 * (b.x - a.x < 0);
 		++i;
@@ -64,7 +65,7 @@ void	line_y(t_point a, t_point b, t_game *game)
 			c.x += 1 * (b.x - a.x > 0) - 1 * (b.x - a.x < 0);
 		if (c.x > 0 && c.x < A && c.y > 0 && c.y < B)
 		{
-			put_pixel(&game->image, c.x, c.y, create_color(game->map2D.ray_color));
+			put_pixel(&game->map2D.image, c.x + game->map2D.shift_x, c.y + game->map2D.shift_y, create_color(game->map2D.ray_color));
 //			dst = game->image.addr
 //				+ (((int)c.y) * game->image.line_size) + (((int)c.x) * (game->image.bpp / 8));
 ////			c.color[0] = fraction_color(a, b, fract(a.y, b.y, c.y), col);

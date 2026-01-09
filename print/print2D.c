@@ -8,14 +8,14 @@ void	draw_walls(t_game *game)
 	
 	pix = game->map2D.scale;
 	x = 0;
-	while (x < A && x / pix < game->map_x)
+	while (x < C && x / pix < game->map_x)
 	{
 		y = 0;
-		while (y < B && y / pix < game->map_y)
+		while (y < D && y / pix < game->map_y)
 		{
 			if (game->map[y / pix][x / pix] == '1' && y % pix)
 			{
-				put_pixel(&game->image, x, y, create_color(game->map2D.wall_color));
+				put_pixel(&game->map2D.image, x + game->map2D.shift_x, y + game->map2D.shift_y, create_color(game->map2D.wall_color));
 			}
 			++y;
 		}

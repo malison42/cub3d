@@ -8,7 +8,7 @@ t_texture   *create_texture(t_game *game, char *filename)
     if (!texture) {} // error malloc
     texture->image.img = mlx_xpm_file_to_image(game->mlx, filename, \
                                             &texture->width, &texture->height);
-	if (!texture->image.img) {printf("error\n");} //error mlx
+	if (!texture->image.img) {} //error mlx
     texture->image.addr = mlx_get_data_addr(texture->image.img, \
                                             &texture->image.bpp, \
                                             &texture->image.line_size, \
