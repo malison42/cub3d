@@ -15,7 +15,7 @@ void	draw_walls(t_game *game)
 		{
 			if (game->map[y / pix][x / pix] == '1' && y % pix)
 			{
-				put_pixel(&game->image, x, y, game->map2D.wall_color);
+				put_pixel(&game->image, x, y, create_color(game->map2D.wall_color));
 			}
 			++y;
 		}

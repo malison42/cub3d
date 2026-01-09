@@ -24,4 +24,8 @@ void	init_game(t_game *game)
 	game->image.img = NULL;
 	init_map2D(game);
 	printf("player %f %f\n", game->player.x, game->player.y);
+
+	char	*filename;
+	filename = ft_strdup("/home/tskubits/projects/cub3d/bee_nest_front_honey.xpm");
+	game->t = create_texture(game, filename);
 }

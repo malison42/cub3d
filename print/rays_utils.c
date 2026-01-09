@@ -11,7 +11,7 @@ double	fdistance(t_wall a, t_ray b)
 
 void    init_collision_structure(t_game *game, t_collision *c)
 {
-    c->map.x = game->player.x;
+	c->map.x = game->player.x;
 	c->map.y = game->player.y;
 	c->delta.x = fabs(1 / c->dir.x);
 	c->delta.y = fabs(1 / c->dir.y);
@@ -27,19 +27,19 @@ void    init_collision_structure(t_game *game, t_collision *c)
 
 t_color define_color(char face)
 {
-    if (face == 'N')
-        return (new_color(0, 100, 200));
-    else if (face == 'W')
-        return (new_color(0, 200, 50));
-    else if (face == 'S')
-        return (new_color(200, 200, 0));
-    else
-        return (new_color(160, 160, 160));
+	if (face == 'N')
+		return (new_color(0, 100, 200));
+	else if (face == 'W')
+		return (new_color(0, 200, 50));
+	else if (face == 'S')
+		return (new_color(200, 200, 0));
+	else
+		return (new_color(160, 160, 160));
 }
 
 void    define_surface(t_game *game, t_wall *collision)
 {
-    if (collision->face == 'X' && game->player.x < collision->x)
+	if (collision->face == 'X' && game->player.x < collision->x)
 		collision->face = 'W';
 	else if (collision->face == 'X' && game->player.x > collision->x)
 		collision->face = 'E';

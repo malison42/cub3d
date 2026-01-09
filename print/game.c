@@ -9,23 +9,48 @@ void	draw_ceiling(t_game *game, int x, int h)
 	finish = (B - h) / 2;
 	while (y < finish)
 	{
-		put_pixel(&game->image, x, y, game->texture->ceiling);
+		put_pixel(&game->image, x, y, create_color(game->texture->ceiling));
 		++y;
 	}
 }
 
-void	draw_wall_line(t_game *game, int x, int h, t_color color)
-{
-	int	y;
-	int	finish;
+// void	draw_wall_line(t_game *game, int x, int h, t_color color)
+// {
+// 	int		y;
+// 	int		finish;
 	
-	y = (B - h) / 2;
-	finish = ft_min(B / 2 + h, B);
-	while (y < finish && y >= 0)
+// 	y = ft_max((B - h) / 2, 0);
+// 	finish = ft_min((B + h) / 2, B);
+// 	while (y < finish)
+// 	{
+
+// 		put_pixel(&game->image, x, y, color);
+// 		++y;
+// 	}
+// }
+
+void	draw_wall_line(t_game *game, int x, int h, t_wall *collision)
+{
+	int		y;
+	int		start;
+	int		finish;
+	double	x_text;
+	int		color;
+
+(void)x;
+	
+	x_text = find_x_for_texture(collision);
+	start = ft_max((B - h) / 2, 0);
+	finish = ft_min((B + h) / 2, B);
+	y = 0;
+	while (start + y < finish)
 	{
-		put_pixel(&game->image, x, y, color);
+		color = get_color_from_texture(x_text, 1.0 * y / h, game->t);
+		put_pixel(&game->image, x, start + y, color);
+		// printf("x %f y %f\n", x_text, 1.0 * y / h);
 		++y;
 	}
+	// destroy_texture(game, texture);
 }
 
 void	draw_floor(t_game *game, int x, int h)
@@ -33,11 +58,11 @@ void	draw_floor(t_game *game, int x, int h)
 	int	y;
 	int	finish;
 	
-	y = B / 2 + h;
+	y = ft_min((B + h) / 2, B);
 	finish = B;
-	while (y >= 0 && y < finish)
+	while (y < finish)
 	{
-		put_pixel(&game->image, x, y, game->texture->floor);
+		put_pixel(&game->image, x, y, create_color(game->texture->floor));
 		++y;
 	}
 }
@@ -55,7 +80,7 @@ void	draw_vertical_line(t_game *game, double ray, int x)
 	height = WALL / dist * COEF;
 	height = height / cos(game->player.direction - ray);
 	draw_ceiling(game, x, height);
-	draw_wall_line(game, x, height, color);
+	draw_wall_line(game, x, height, &collision);
 	draw_floor(game, x, height);
 }
 

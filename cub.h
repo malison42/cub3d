@@ -120,6 +120,13 @@ typedef struct s_map2D
 	int 			shift_y;
 }	t_map2D;
 
+typedef struct s_texture
+{
+	t_image	image;
+	int		width;
+	int		height;
+}	t_texture;
+
 typedef struct s_game
 {
 	void 			*mlx;
@@ -132,7 +139,10 @@ typedef struct s_game
 	t_player		start;
 	t_map2D			map2D;
 	t_ray			player;
+	t_texture		*t;
 }	t_game;
+
+
 
 //parsing
 int		parse_data(char *filepath, t_game *game);
@@ -147,7 +157,7 @@ t_color	new_color(int r, int g, int b);
 char	*get_line(int fd);
 
 //pixel
-void	put_pixel(t_image *img, int x, int y, t_color color);
+void	put_pixel(t_image *img, int x, int y, int color);
 int		create_color(t_color color);
 void	put_square(t_game *game, int x, int y, t_color color);
 
@@ -185,5 +195,10 @@ void    init_collision_structure(t_game *game, t_collision *c);
 t_color define_color(char face);
 void    define_surface(t_game *game, t_wall *c);
 
+
+t_texture   *create_texture(t_game *game, char *filename);
+unsigned int get_color_from_texture(double x, double y, t_texture *texture);
+void    destroy_texture(t_game *game, t_texture *texture);
+double	find_x_for_texture(t_wall *collision);
 
 #endif
