@@ -152,6 +152,7 @@ typedef struct s_game
 	t_player		start;
 	t_map2D			map2D;
 	t_ray			player;
+	int				minimap_on;
 }	t_game;
 
 

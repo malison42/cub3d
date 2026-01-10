@@ -18,9 +18,11 @@ void	draw_image(t_game *game)
 										 &game->map2D.image.line_size,
 										 &game->map2D.image.endian);
 	draw_game(game);
-	print_2D_map(game);
+	if (game->minimap_on)
+		print_2D_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->map2D.image.img, A - C, B - D);
+	if (game->minimap_on)
+		mlx_put_image_to_window(game->mlx, game->win, game->map2D.image.img, A - C, B - D);
 }
 
 int	main(int argc, char **argv)

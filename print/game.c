@@ -72,10 +72,10 @@ void	draw_vertical_line(t_game *game, double ray, int x)
 	double	height;
 	double	dist;
 	t_wall	collision;
-	t_color	color;
+//	t_color	color;
 
 	collision = find_collision(game, ray);
-	color = define_color(collision.face);
+//	color = define_color(collision.face);
 	dist = fdistance(collision, game->player);
 	height = WALL / dist * COEF;
 	height = height / cos(game->player.direction - ray);

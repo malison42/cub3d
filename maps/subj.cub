@@ -1,7 +1,7 @@
-NO /home/tskubits/projects/cub3d/textures/ground.xpm
-SO /home/tskubits/projects/cub3d/textures/leaves.xpm
-WE /home/tskubits/projects/cub3d/textures/rocks.xpm
-EA /home/tskubits/projects/cub3d/textures/waves.xpm
+NO textures/space.xpm
+SO textures/space.xpm
+WE textures/space.xpm
+EA textures/space.xpm
 
 F 220,100,0
 C 225,30,0

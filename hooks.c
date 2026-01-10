@@ -58,6 +58,8 @@ int	key_hook(int key, t_game *game)
 		game->player.direction -= M_PI / 90;
 	else if (key == RIGHT_VIEW)
 		game->player.direction += M_PI / 90;
+	else if (key == MINI_MAP)
+		game->minimap_on = (game->minimap_on + 1) % 2;
 	else
 		printf("key %d\n", key);
 

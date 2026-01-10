@@ -18,9 +18,9 @@
 # define DOWN 1
 # define RIGHT 2
 # define LEFT 0
-
 # define LEFT_VIEW 123
 # define RIGHT_VIEW 124
+# define MINI_MAP 49
 
 // # define SPACE 49
 // # define MOUSE_CLICK 1

@@ -23,6 +23,7 @@ void	init_game(t_game *game)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
 	game->image.img = NULL;
+	game->minimap_on = 0;
 	// init_map2D(game);
 	// printf("player %f %f\n", game->player.x, game->player.y);
 }

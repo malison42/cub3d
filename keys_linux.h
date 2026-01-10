@@ -20,6 +20,7 @@
 # define LEFT 97
 # define RIGHT_VIEW 65363
 # define LEFT_VIEW 65361
+# define MINI_MAP 49
 
 
 // # define SPACE 32

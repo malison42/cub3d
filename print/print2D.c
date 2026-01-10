@@ -13,7 +13,7 @@ void	draw_walls(t_game *game)
 		y = 0;
 		while (y < D && y / pix < game->map_y)
 		{
-			if (game->map[y / pix][x / pix] == '1' && y % pix)
+			if (game->map[y / pix][x / pix] == '1')
 			{
 				put_pixel(&game->map2D.image, x + game->map2D.shift_x, y + game->map2D.shift_y, create_color(game->map2D.wall_color));
 			}
