@@ -4,10 +4,8 @@ MLX_NAME	= libmlx.a
 LIB_NAME	= libft.a
 PARSING_DIR	= parsing/new_parser
 
-SRC			= main.c init.c hooks.c \
-			parsing/parse_colors.c parsing/parse_textures.c \
-			parsing/parse_map.c parsing/parse_utils.c \
-			render/pixel.c render/minimap.c render/game.c render/rays.c \
+SRC			= main.c init.c hooks.c free_game.c\
+						render/pixel.c render/minimap.c render/game.c render/rays.c \
 			render/rays_utils.c render/lines.c render/textures.c
 
 PARSING_SRC = $(wildcard $(PARSING_DIR)/*.c)

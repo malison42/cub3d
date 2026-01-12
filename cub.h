@@ -46,6 +46,15 @@
 # define MESSAGE_SCENE_NOT_VALID "Scene is not valid"
 // # define MESSAGE_MALLOC "Unable to allocate memory"
 
+typedef	enum e_sunny_side
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	ERROR,
+} t_sunny_side;
+
 typedef struct s_color
 {
 	int	r;
@@ -108,10 +117,11 @@ typedef struct s_texture
 
 typedef struct s_textures
 {
-	t_texture	*north;
-	t_texture	*south;
-	t_texture	*west;
-	t_texture	*east;
+	// t_texture	*north;
+	// t_texture	*south;
+	// t_texture	*west;
+	// t_texture	*east;
+	t_texture		*side[4];
 	t_color	floor;
 	t_color	ceiling;
 }	t_textures;
@@ -201,7 +211,10 @@ void	init_minimap(t_game *game);
 void	init_game(t_game *game);
 
 //hooks.c
-int		close_win(void);
+int		close_win(t_game *game);
 int		key_hook(int key, t_game *game);
 
+
+//free_game.c
+void    free_game(t_game *game);
 #endif

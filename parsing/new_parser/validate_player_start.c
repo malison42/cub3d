@@ -1,5 +1,5 @@
 #include "parsing_map.h"
-
+//TODO remove start
 int	set_player(t_player *start, int x, int y, char view)
 {
 	start->x = x;
@@ -29,8 +29,11 @@ int	check_start_pos(t_game *game, int y, char **map)
 		if (ft_isset(map[y][x], "NSWE"))
 		{
 			// ? Возможно стоит добавить флаг а не использовать значении данное при иницилизации
-			if (count_start_pos == 0 && game->start.view == 0) // !работет при иницилизации нулями
-				set_player(&game->start, x, y, map[y][x]);
+			if (count_start_pos == 0) // !работет при иницилизации нулями
+				{
+					printf("X = %d Y = %d\n", x , y);
+					set_player(&game->start, x, y, map[y][x]);
+				}
 			count_start_pos++;
 		}
 		++x;
@@ -60,8 +63,8 @@ int validate_player_start(t_game *game, char **map)
 		printf("Error\nMap has no starting position.\n");
 		return (0);
 	}
-	game->player.x = game->start.x * SCALE + SCALE / 2;
-	game->player.y = game->start.y * SCALE + SCALE / 2;
+	game->player.x = game->start.x + 0.5;
+	game->player.y = game->start.y + 0.5;
 	game->player.direction = game->start.view;
 	return (1);
 }

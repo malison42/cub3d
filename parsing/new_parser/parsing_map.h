@@ -5,14 +5,7 @@
 
 #include "../../cub.h"
 
-typedef	enum e_sunny_side
-{
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST,
-	ERROR,
-} t_sunny_side;
+
 
 typedef enum e_config_flags
 {

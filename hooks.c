@@ -1,7 +1,8 @@
 #include "cub.h"
 
-int	close_win(void)
+int	close_win(t_game *game)
 {
+	free_game(game);
 	exit(0);
 }
 

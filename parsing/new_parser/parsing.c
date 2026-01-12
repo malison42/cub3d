@@ -43,13 +43,16 @@ int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 	while (i < 4)
 	{
 		// printf("fd =%d", game->texture->fd_texture[i]);
-		int fd = open(game_var->texturs[i].path_texture, O_RDONLY);
-		game->texture->fd_texture[i] = fd;
+		// int fd = open(game_var->texturs[i].path_texture, O_RDONLY);
+		// game->texture->fd_texture[i] = fd;
 		// printf("str =%s", game_var->texturs[i].path_texture);
-		if (game->texture->fd_texture[i] == -1)
+		game->texture->side[i] = \
+		create_texture(game, game_var->texturs[i].path_texture);
+		free(game_var->texturs[i].path_texture);
+		if (!game->texture->side[i])
 		{
 			perror("file_texture");
-			close_fd(game->texture->fd_texture, i - 1);
+			//close_fd(game->texture->fd_texture, i - 1);
 			return(0);
 		}
 		i++;
@@ -64,7 +67,8 @@ void	ft_free_path_texture(t_parsing_var *game_var)
 	i = 0;
 	while (i < 4)
 	{
-		free(game_var->texturs[i].path_texture);
+		if (game_var->texturs[i].path_texture)
+			free(game_var->texturs[i].path_texture);
 		i++;
 	}
 }

@@ -1,14 +1,14 @@
-NO fdf.h
-SO fdf.h
-WE fdf.h
-EA fdf.h
+NO textures/leaves.xpm
+SO textures/space.xpm
+WE textures/space.xpm
+EA textures/space.xpm
 
 F 220,100,0
 C 225,30,0
 
 11111111111
 1W000010111
-1001001111
+10010NN1111
 11110011
 10011111
 1111

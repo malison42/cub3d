@@ -1,5 +1,6 @@
 #include "../cub.h"
-
+# include "../parsing/new_parser/parsing_map.h"
+// typedef	enum e_sunny_side;
 t_texture   *create_texture(t_game *game, char *filename)
 {
     t_texture   *texture;
@@ -31,13 +32,13 @@ unsigned int get_color_from_texture(double x, double y, t_texture *texture)
 t_texture	*define_texture(char face, t_textures *text)
 {
 	if (face == 'N')
-		return (text->north);
+		return (text->side[NORTH]);
 	else if (face == 'W')
-		return (text->west);
+		return (text->side[WEST]);
 	else if (face == 'S')
-		return (text->south);
+		return (text->side[SOUTH]);
 	else
-		return (text->east);
+		return (text->side[EAST]);
 }
 
 void    destroy_texture(t_game *game, t_texture *texture)

@@ -41,27 +41,28 @@ int	main(int argc, char **argv)
 	// 	return (EXIT_FAILURE);
 	// }
 
-	t_game *game;
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (EXIT_FAILURE);
-	ft_bzero(game, sizeof(t_game));
-	game->texture = malloc(sizeof(t_textures));
-	if (!game->texture)
+	t_game game;
+	// game = malloc(sizeof(t_game));
+	// if (!game)
+	// 	return (EXIT_FAILURE);
+	// ft_bzero(game, sizeof(t_game));
+	init_game(&game);
+	game.texture = malloc(sizeof(t_textures));
+	if (!game.texture)
 	{
-		free(game);
+		// free(game);
 		return (EXIT_FAILURE);
 	}
 	printf("shcjkzxlhc\n");
-	if (!parse_game_file(game, argv, argc))
+	if (!parse_game_file(&game, argv, argc))
 	{
-		free(game);
+		 free_game(&game);
+
 		return (EXIT_FAILURE);
 	}
 
-	t_game game;
-	init_game(&game);
-	parse_data(argv[1], &game);
+	// t_game game;
+	// parse_data(argv[1], &game);
 	init_minimap(&game);
 	printf("%f %f\n", game.player.x, game.player.y);
 
@@ -71,8 +72,8 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
 	mlx_do_key_autorepeaton(game.mlx);
 //	mlx_key_hook(game.win, key_hook, &game);
-	mlx_hook(game->win, 2, (1L << 0), key_hook, game);
-	mlx_hook(game->win, 17, 0, close_win, game);
+	mlx_hook(game.win, 2, (1L << 0), key_hook, &game);
+	mlx_hook(game.win, 17, 0, close_win, &game);
 //	mlx_hook(model.win, 4, 0, mouse_hook, &model);
-	mlx_loop(game->mlx);
+	mlx_loop(game.mlx);
 }

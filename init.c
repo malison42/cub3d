@@ -20,8 +20,10 @@ void	init_minimap(t_game *game)
 
 void	init_game(t_game *game)
 {
+	ft_bzero(game, sizeof(t_game));
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
 	game->image.img = NULL;
 	game->minimap_on = 0;
+
 }
