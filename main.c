@@ -1,14 +1,30 @@
 #include "cub.h"
 
-void	init_game(t_game *game)
+
+void	draw_image(t_game *game)
 {
-	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, A, B, "GAME");
-	// game->image.img = mlx_new_image(game->mlx, A, B);
-	// game->image.addr = mlx_get_data_addr(game->image.img, &game->image.bpp, &game->image.line_size,
-	// 									&game->image.endian);
-	game->image.img = NULL;
-	init_map2D(game);
+	if (game->image.img)
+		mlx_destroy_image(game->mlx, game->image.img);
+	game->image.img = mlx_new_image(game->mlx, A, B);
+	game->image.addr = mlx_get_data_addr(game->image.img,
+										 &game->image.bpp,
+										 &game->image.line_size,
+										 &game->image.endian);
+	if (game->map2D.image.img)
+		mlx_destroy_image(game->mlx, game->map2D.image.img);
+	game->map2D.image.img = mlx_new_image(game->mlx, C, D);
+	game->map2D.image.addr = mlx_get_data_addr(game->map2D.image.img,
+										 &game->map2D.image.bpp,
+										 &game->map2D.image.line_size,
+										 &game->map2D.image.endian);
+	draw_game(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
+	if (game->minimap_on)
+	{
+		draw_minimap(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->map2D.image.img, \
+								A - C, B - D);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -42,17 +58,18 @@ int	main(int argc, char **argv)
 		free(game);
 		return (EXIT_FAILURE);
 	}
-	printf("%f %f\n", game->player.x, game->player.y);
-	init_game(game);
-//	calculate_small_map(&game);
-//	printf("qw %f\n", game.player.view);
 
-	// print_2D_map(&game);
-	// draw_game(&game);
-	draw_image(game);
+	t_game game;
+	init_game(&game);
+	parse_data(argv[1], &game);
+	init_minimap(&game);
+	printf("%f %f\n", game.player.x, game.player.y);
 
-	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
-	mlx_do_key_autorepeaton(game->mlx);
+	// need to check initialization success
+	draw_image(&game);
+	
+	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
+	mlx_do_key_autorepeaton(game.mlx);
 //	mlx_key_hook(game.win, key_hook, &game);
 	mlx_hook(game->win, 2, (1L << 0), key_hook, game);
 	mlx_hook(game->win, 17, 0, close_win, game);

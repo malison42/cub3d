@@ -5,48 +5,64 @@ int	close_win(void)
 	exit(0);
 }
 
-void	draw_image(t_game *game)
-{
-	if (game->image.img)
-		mlx_destroy_image(game->mlx, game->image.img);
-	game->image.img = mlx_new_image(game->mlx, A, B);
-	game->image.addr = mlx_get_data_addr(game->image.img,
-										 &game->image.bpp,
-										 &game->image.line_size,
-										 &game->image.endian);
-	//print_2D_map(game);
-	 draw_game(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
-}
+// static int	isobstacle(t_game *game, double x, double y)
+// {
+// 	if (game->map[(int)(y + 0.2)][(int)(x)] == '1')
+// 		return (1);
+// 	if (game->map[(int)(y - 0.2)][(int)(x)] == '1')
+// 		return (1);
+// 	if (game->map[(int)(y)][(int)(x + 0.2)] == '1')
+// 		return (1);
+// 	if (game->map[(int)(y)][(int)(x - 0.2)] == '1')
+// 		return (1);
+// 	return (0);
+// }
 
-void	walk(t_game *game, int sign)
+void	walk(t_game *game, int sign, int axis)
 {
 	double	x;
 	double	y;
 
-	x = game->player.x + sign * cos(game->player.direction) * 2;
-	y = game->player.y + sign * sin(game->player.direction) * 2;
-	if (game->map[(int)(y / SCALE)][(int)(x / SCALE)] != '1')
+	if (axis == 1)
 	{
-		game->player.x += sign * cos(game->player.direction) * 2;
-		game->player.y += sign * sin(game->player.direction) * 2;
+		x = game->player.x + sign * cos(game->player.direction) / 10;
+		y = game->player.y + sign * sin(game->player.direction) / 10;
+	}
+	else
+	{
+		x = game->player.x - sign * sin(game->player.direction) / 10;
+		y = game->player.y + sign * cos(game->player.direction) / 10;
+	}
+	if (game->map[(int)(y)][(int)(x)] != '1')
+	// if (!isobstacle(game, x, y))
+	{
+		game->player.x = x;
+		game->player.y = y;
 	}
 }
 
 int	key_hook(int key, t_game *game)
 {
+	// printf("new key %d\n", key);
 	if (key == ESC)
 		exit(0);
 	else if (key == UP)
-		walk(game, +1);
+		walk(game, +1, 1);
 	else if (key == DOWN)
-		walk(game, -1);
-	else if (key == LEFT)
-		game->player.direction -= M_PI / 90;
+		walk(game, -1, 1);
 	else if (key == RIGHT)
+		walk(game, +1, 0);
+	else if (key == LEFT)
+		walk(game, -1, 0);
+	else if (key == LEFT_VIEW)
+		game->player.direction -= M_PI / 90;
+	else if (key == RIGHT_VIEW)
 		game->player.direction += M_PI / 90;
+	else if (key == MINI_MAP)
+		game->minimap_on = (game->minimap_on + 1) % 2;
 	else
 		printf("key %d\n", key);
+
 	draw_image(game);
 	return (0);
 }

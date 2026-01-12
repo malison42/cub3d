@@ -1,6 +1,6 @@
 #include "libft.h"
 
-size_t	ft_max(size_t a, size_t b)
+int	ft_max(int a, int b)
 {
 	return (a * (a > b) + b * (a <= b));
 }

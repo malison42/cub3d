@@ -29,21 +29,15 @@
 #  include "keys_linux.h"
 # endif
 
-# define A 640
-# define B 400
-# define SIDE 20
+# define A 1280
+# define B 800
+# define C A / 5
+# define D B / 5
+// # define SIDE 20
 # define SCALE 64
 # define WALL 64
-# define COEF 277
-//# define SHIFT 2
-
-//relief height
-// # define H_BLUE 5
-// # define H_WHITE 10
-// # define H_GREEN 20
-// # define H_YELLOW 50
-// # define H_ORANGE 100
-// # define H_RED 150
+# define COEF 1108
+# define RAYS 1280
 
 //messages
 // # define MESSAGE_WRONG_ARGS "Wrong number of arguments"
@@ -59,25 +53,26 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
-typedef struct s_textures
+typedef struct s_point
 {
-	// int		north;
-	// int		south;
-	// int		west;
-	// int		east;
-	int		fd_texture[4];
-	t_color	floor;
-	t_color	ceiling;
-}	t_textures;
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_player
 {
 	int		x;
 	int 	y;
-	int		curr_x;
-	int		curr_y;
 	double	view;
 }	t_player;
+
+typedef struct s_wall
+{
+	double	x;
+	double	y;
+	char	face;
+}	t_wall;
+
 
 typedef struct s_image
 {
@@ -88,24 +83,6 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
-typedef struct s_small_map
-{
-	int			scale;
-	int 		left_border;
-	int			right_border;
-	int			top_border;
-	int			bottom_border;
-	int 		shift_x;
-	int 		shift_y;
-	int			player_x;
-	int			player_y;
-	t_color		wall_color;
-//	t_color		player_color;
-	t_color		fow_color;
-//	t_color		dir_color;
-	t_image		*image;
-}	t_small_map;
-
 typedef struct s_ray
 {
 	double	x;
@@ -113,30 +90,59 @@ typedef struct s_ray
 	double	direction;
 }	t_ray;
 
+typedef struct s_collision
+{
+	t_ray	dir;
+	t_point	step;
+	t_point map;
+	t_ray	delta;
+	t_ray	side;
+}	t_collision;
+
+typedef struct s_texture
+{
+	t_image	image;
+	int		width;
+	int		height;
+}	t_texture;
+
+typedef struct s_textures
+{
+	t_texture	*north;
+	t_texture	*south;
+	t_texture	*west;
+	t_texture	*east;
+	t_color	floor;
+	t_color	ceiling;
+}	t_textures;
+
 typedef struct s_map2D
 {
-	int		scale;
-	t_color	wall_color;
-	t_color	ray_color;
-	t_ray	player;
-	int		shift_x;
-	int 	shift_y;
+	int				scale;
+	t_color			wall_color;
+	t_color			ray_color;
+	t_ray			player;
+	int				shift_x;
+	int 			shift_y;
+	t_image			image;
 }	t_map2D;
 
 typedef struct s_game
 {
-	void 		*mlx;
-	void 		*win;
-	t_image 	image;
-	t_textures	*texture;
-	int			map_x;
-	int			map_y;
-	char		**map;
-	t_small_map	small_map;
-	t_player	start;
-	t_map2D		map2D;
-	t_ray		player;
+	void 			*mlx;
+	void 			*win;
+	t_image 		image;
+	t_textures		*texture;
+	int				map_x;
+	int				map_y;
+	char			**map;
+	t_player		start;
+	t_map2D			map2D;
+	t_ray			player;
+	int				minimap_on;
 }	t_game;
+
+
 
 //parsing
 // int		parse_data(char *filepath, t_game *game);
@@ -151,28 +157,51 @@ typedef struct s_game
 // char	*get_line(int fd);
 int	parse_game_file(t_game *game, char *argv[], int argc);
 t_color	new_color(int r, int g, int b);
-//pixel
-void	put_pixel(t_image *img, int x, int y, t_color color);
-int		create_color(t_color color);
-void	put_square(t_game *game, int x, int y, t_color color);
+char	*get_line(int fd);
 
+/*RENDER*/
 
-//print
-void	print_2D_map(t_game *game);
-//void	draw_ray(t_game *game, double direction);
-void	draw_fow(t_game *game);
-void	calculate_small_map(t_game *game);
-
-void	init_map2D(t_game *game);
-
-//hooks
-int	close_win(void);
-int	key_hook(int key, t_game *game);
-
-
-void	draw_line(t_game *game, double ray, int pix_x);
+//game.c
 void	draw_game(t_game *game);
 
+//minimap.c
+void	draw_minimap(t_game *game);
+
+//rays.c
+t_wall	find_collision(t_game *game, double ray);
+
+//rays_utils.c
+void    init_collision_structure(t_game *game, t_collision *c);
+void    define_surface(t_game *game, t_wall *collision);
+double	fdistance(t_wall a, t_ray b);
+
+//pixel.c
+int		create_color(t_color color);
+void	put_pixel(t_image *img, int x, int y, int color);
+t_point	new_point(int x, int y);
+
+//textures.c
+t_texture		*create_texture(t_game *game, char *filename);
+unsigned int	get_color_from_texture(double x, double y, t_texture *texture);
+t_texture		*define_texture(char face, t_textures *text);
+void			destroy_texture(t_game *game, t_texture *texture);
+double			find_x_for_texture(t_wall *collision);
+
+//lines.c
+void	line(t_point a, t_point b, t_game *game);
+
+
+/*MAIN*/
+
+//main.c
 void	draw_image(t_game *game);
+
+//init.c
+void	init_minimap(t_game *game);
+void	init_game(t_game *game);
+
+//hooks.c
+int		close_win(void);
+int		key_hook(int key, t_game *game);
 
 #endif

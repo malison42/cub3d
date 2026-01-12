@@ -74,8 +74,10 @@ void	parse_player(t_game *game)
 		}
 		++i;
 	}
-	game->player.x = game->start.x * SCALE + SCALE / 2;
-	game->player.y = game->start.y * SCALE + SCALE / 2;
+	// game->player.x = game->start.x * SCALE + SCALE / 2;
+	// game->player.y = game->start.y * SCALE + SCALE / 2;
+	game->player.x = game->start.x + 0.5;
+	game->player.y = game->start.y + 0.5;
 	game->player.direction = game->start.view;
 }
 
@@ -91,11 +93,8 @@ int	parse_data(char *filepath, t_game *game)
 	tex = malloc(sizeof(t_textures));
 	if (!tex)
 		return (perror("malloc"), close(fd), 1);
-	parse_textures(fd, tex);
+	parse_textures(fd, tex, game);
 	game->texture = tex;
-//	printf("\nnorth %d\nsouth %d\nwest %d\neast %d\n", tex->north, tex->south, tex->west, tex->east);
-//	printf("floor %d, %d, %d\n", tex->floor.r, tex->floor.g, tex->floor.b);
-//	printf("ceiling %d, %d, %d\n\n", tex->ceiling.r, tex->ceiling.g, tex->ceiling.b);
 	game->map = parse_map(fd, game);
 	parse_player(game);
 	return (0);
