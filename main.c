@@ -18,11 +18,13 @@ void	draw_image(t_game *game)
 										 &game->map2D.image.line_size,
 										 &game->map2D.image.endian);
 	draw_game(game);
-	if (game->minimap_on)
-		print_2D_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
 	if (game->minimap_on)
-		mlx_put_image_to_window(game->mlx, game->win, game->map2D.image.img, A - C, B - D);
+	{
+		draw_minimap(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->map2D.image.img, \
+								A - C, B - D);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -42,7 +44,7 @@ int	main(int argc, char **argv)
 	t_game game;
 	init_game(&game);
 	parse_data(argv[1], &game);
-	init_map2D(&game);
+	init_minimap(&game);
 	printf("%f %f\n", game.player.x, game.player.y);
 
 	// need to check initialization success

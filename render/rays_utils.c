@@ -9,7 +9,7 @@ double	fdistance(t_wall a, t_ray b)
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
 
-void    init_collision_structure(t_game *game, t_collision *c)
+void	init_collision_structure(t_game *game, t_collision *c)
 {
 	c->map.x = game->player.x;
 	c->map.y = game->player.y;
@@ -25,19 +25,19 @@ void    init_collision_structure(t_game *game, t_collision *c)
 		c->side.y = (1 - game->player.y + c->map.y) * c->delta.y;
 }
 
-t_color define_color(char face)
-{
-	if (face == 'N')
-		return (new_color(0, 100, 200));
-	else if (face == 'W')
-		return (new_color(0, 200, 50));
-	else if (face == 'S')
-		return (new_color(200, 200, 0));
-	else
-		return (new_color(160, 160, 160));
-}
+// t_color define_color(char face)
+// {
+// 	if (face == 'N')
+// 		return (new_color(0, 100, 200));
+// 	else if (face == 'W')
+// 		return (new_color(0, 200, 50));
+// 	else if (face == 'S')
+// 		return (new_color(200, 200, 0));
+// 	else
+// 		return (new_color(160, 160, 160));
+// }
 
-void    define_surface(t_game *game, t_wall *collision)
+void	define_surface(t_game *game, t_wall *collision)
 {
 	if (collision->face == 'X' && game->player.x < collision->x)
 		collision->face = 'W';

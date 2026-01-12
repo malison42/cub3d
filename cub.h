@@ -53,18 +53,6 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
-
-
-// typedef struct s_textures
-// {
-// 	int		north;
-// 	int		south;
-// 	int		west;
-// 	int		east;
-// 	t_color	floor;
-// 	t_color	ceiling;
-// }	t_textures;
-
 typedef struct s_point
 {
 	int	x;
@@ -84,7 +72,6 @@ typedef struct s_wall
 	double	y;
 	char	face;
 }	t_wall;
-
 
 
 typedef struct s_image
@@ -158,62 +145,60 @@ typedef struct s_game
 
 
 //parsing
-int		parse_data(char *filepath, t_game *game);
-void	free_tokens(char **tokens);
-char	**parse_tokens(int fd);
-char	***read_lines(int fd);
-t_texture*		parse_wall(char ***lines, char	*orientation, t_game *game);
+int			parse_data(char *filepath, t_game *game);
+void		free_tokens(char **tokens);
+char		**parse_tokens(int fd);
+char		***read_lines(int fd);
+t_texture*	parse_wall(char ***lines, char	*orientation, t_game *game);
 t_color	parse_color(char ***lines, char *surface);
 int		parse_textures(int fd, t_textures *tex, t_game *game);
 
 t_color	new_color(int r, int g, int b);
 char	*get_line(int fd);
 
-//pixel
-void	put_pixel(t_image *img, int x, int y, int color);
-int		create_color(t_color color);
-void	put_square(t_game *game, int x, int y, t_color color);
+/*RENDER*/
 
-t_point	new_point(int x, int y);
-
-
-//print
-void	print_2D_map(t_game *game);
-//void	draw_ray(t_game *game, double direction);
-void	draw_fow(t_game *game);
-void	calculate_small_map(t_game *game);
-
-void	init_map2D(t_game *game);
-
-//hooks
-int	close_win(void);
-int	key_hook(int key, t_game *game);
-
-
-void	draw_line(t_game *game, double ray, int pix_x);
+//game.c
 void	draw_game(t_game *game);
 
-t_wall	find_wall(t_game *game, double ray);
+//minimap.c
+void	draw_minimap(t_game *game);
+
+//rays.c
+t_wall	find_collision(t_game *game, double ray);
+
+//rays_utils.c
+void    init_collision_structure(t_game *game, t_collision *c);
+void    define_surface(t_game *game, t_wall *collision);
+double	fdistance(t_wall a, t_ray b);
+
+//pixel.c
+int		create_color(t_color color);
+void	put_pixel(t_image *img, int x, int y, int color);
+t_point	new_point(int x, int y);
+
+//textures.c
+t_texture		*create_texture(t_game *game, char *filename);
+unsigned int	get_color_from_texture(double x, double y, t_texture *texture);
+t_texture		*define_texture(char face, t_textures *text);
+void			destroy_texture(t_game *game, t_texture *texture);
+double			find_x_for_texture(t_wall *collision);
+
+//lines.c
 void	line(t_point a, t_point b, t_game *game);
 
+
+/*MAIN*/
+
+//main.c
 void	draw_image(t_game *game);
 
+//init.c
+void	init_minimap(t_game *game);
 void	init_game(t_game *game);
 
-t_ray recalculate_point(t_game *game, t_ray point);
-t_ray	find_wall3(t_game *game, double ray);
-t_wall	find_collision(t_game *game, double ray);
-double	fdistance(t_wall a, t_ray b);
-void    init_collision_structure(t_game *game, t_collision *c);
-t_color define_color(char face);
-void    define_surface(t_game *game, t_wall *c);
-
-
-t_texture   *create_texture(t_game *game, char *filename);
-unsigned int get_color_from_texture(double x, double y, t_texture *texture);
-void    destroy_texture(t_game *game, t_texture *texture);
-double	find_x_for_texture(t_wall *collision);
-
-t_texture	*define_texture(char face, t_textures *text);
+//hooks.c
+int		close_win(void);
+int		key_hook(int key, t_game *game);
 
 #endif

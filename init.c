@@ -1,6 +1,6 @@
 #include "cub.h"
 
-void	init_map2D(t_game *game)
+void	init_minimap(t_game *game)
 {
 	game->map2D.scale = ft_min((int)((C) / game->map_x),
 							  (int)((D) / game->map_y));
@@ -24,6 +24,4 @@ void	init_game(t_game *game)
 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
 	game->image.img = NULL;
 	game->minimap_on = 0;
-	// init_map2D(game);
-	// printf("player %f %f\n", game->player.x, game->player.y);
 }

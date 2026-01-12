@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../cub.h"
 
 t_texture   *create_texture(t_game *game, char *filename)
 {

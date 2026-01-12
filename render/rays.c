@@ -9,7 +9,6 @@ t_wall	straight_ray(t_game *game, t_collision *c)
 		c->map.y += c->step.y;
 		c->map.x += c->step.x;
 	}
-
 	t_wall	point;
 	if (c->dir.x == 0)
 	{
