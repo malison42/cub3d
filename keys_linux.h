@@ -6,7 +6,7 @@
 /*   By: tskubits <tskubits@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:10:24 by tskubits          #+#    #+#             */
-/*   Updated: 2025/11/06 14:06:47 by tskubits         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:44:15 by tskubits         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define LEFT 97
 # define RIGHT_VIEW 65363
 # define LEFT_VIEW 65361
-# define MINI_MAP 49
+# define MINI_MAP 32
 
 
 // # define SPACE 32
