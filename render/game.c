@@ -47,7 +47,6 @@ void	draw_wall_line(t_game *game, int x, int h, t_wall *collision)
 		++y;
 	}
 }
-	// destroy_texture(game, texture);
 
 void	draw_floor(t_game *game, int x, int h)
 {
@@ -65,20 +64,10 @@ void	draw_floor(t_game *game, int x, int h)
 	y = 0;
 	while (start + y < finish)
 	{
-		put_pixel(&game->image, x, start + y, create_color(game->texture->floor));
+		put_pixel(&game->image, x, start + y,
+			create_color(game->texture->floor));
 		++y;
 	}
-
-	// start = ft_max((B - h) / 2, 0);
-	// finish = ft_min((B + h) / 2, B);
-	// y = 0;
-	// while (start + y < finish)
-	// {
-	// 	color = get_color_from_texture(x_text, 1.0 * y / h,
-	// 			define_texture(collision->face, game->texture));
-	// 	put_pixel(&game->image, x, start + y, color);
-	// 	++y;
-	// }
 }
 
 void	draw_vertical_line(t_game *game, double ray, int x)
