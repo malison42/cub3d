@@ -29,8 +29,8 @@
 #  include "keys_linux.h"
 # endif
 
-# define A 1280
-# define B 800
+# define A 1600
+# define B 1000
 # define C A / 5
 # define D B / 5
 // # define SIDE 20
@@ -165,7 +165,7 @@ typedef struct s_game
 
 // t_color	new_color(int r, int g, int b);
 // char	*get_line(int fd);
-int	parse_game_file(t_game *game, char *argv[], int argc);
+int	parse_game_file(t_game *game, int fd);
 t_color	new_color(int r, int g, int b);
 char	*get_line(int fd);
 
@@ -208,7 +208,7 @@ void	draw_image(t_game *game);
 
 //init.c
 void	init_minimap(t_game *game);
-void	init_game(t_game *game);
+int		init_game(t_game *game);
 
 //hooks.c
 int		close_win(t_game *game);

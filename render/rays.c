@@ -2,6 +2,8 @@
 
 t_wall	straight_ray(t_game *game, t_collision *c)
 {
+	t_wall	point;
+
 	c->map.x = game->player.x;
 	c->map.y = game->player.y;
 	while (game->map[c->map.y][c->map.x] != '1')
@@ -9,7 +11,6 @@ t_wall	straight_ray(t_game *game, t_collision *c)
 		c->map.y += c->step.y;
 		c->map.x += c->step.x;
 	}
-	t_wall	point;
 	if (c->dir.x == 0)
 	{
 		point.x = game->player.x;
