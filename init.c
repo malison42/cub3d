@@ -2,12 +2,13 @@
 
 void	init_minimap(t_game *game)
 {
-	game->map2D.scale = ft_min((int)((C) / game->map_x),
-							  (int)((D) / game->map_y));
-	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale +
-							game->map2D.scale / 2;
-	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale +
-							game->map2D.scale / 2;
+	game->map2D.scale = ft_min(
+			(int)((C) / game->map_x),
+			(int)((D) / game->map_y));
+	game->map2D.player.x = game->player.x / SCALE * game->map2D.scale
+		+ game->map2D.scale / 2;
+	game->map2D.player.y = game->player.y / SCALE * game->map2D.scale
+		+ game->map2D.scale / 2;
 	game->map2D.player.direction = game->player.direction;
 	game->map2D.shift_x = (C - game->map_x * game->map2D.scale) / 2;
 	game->map2D.shift_y = (D - game->map_y * game->map2D.scale) / 2;

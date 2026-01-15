@@ -1,7 +1,8 @@
 #include "cub.h"
-void free_map_array(char **map, int rows_to_free);
 
-void    free_game(t_game *game)
+void	free_map_array(char **map, int rows_to_free);
+
+void	free_game(t_game *game)
 {
 	if (game->map)
 		free_map_array(game->map, game->map_y);

@@ -44,7 +44,6 @@ void	walk(t_game *game, int sign, int axis)
 
 int	key_hook(int key, t_game *game)
 {
-	// printf("new key %d\n", key);
 	if (key == ESC)
 		exit(0);
 	else if (key == UP)
@@ -63,7 +62,6 @@ int	key_hook(int key, t_game *game)
 		game->minimap_on = (game->minimap_on + 1) % 2;
 	else
 		printf("key %d\n", key);
-
 	draw_image(game);
 	return (0);
 }
