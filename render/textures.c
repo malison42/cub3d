@@ -6,10 +6,19 @@ t_texture   *create_texture(t_game *game, char *filename)
     t_texture   *texture;
 
     texture = malloc(sizeof(t_texture));
-    if (!texture) {} // error malloc
+    if (!texture)
+	{
+		perror("malloc");
+		return (NULL);
+	}
     texture->image.img = mlx_xpm_file_to_image(game->mlx, filename, \
                                             &texture->width, &texture->height);
-	if (!texture->image.img) {} //error mlx
+	if (!texture->image.img)
+	{
+		perror("mlx");
+		free(texture);
+		return (NULL);
+	}
     texture->image.addr = mlx_get_data_addr(texture->image.img, \
                                             &texture->image.bpp, \
                                             &texture->image.line_size, \
@@ -43,7 +52,7 @@ t_texture	*define_texture(char face, t_textures *text)
 
 void    destroy_texture(t_game *game, t_texture *texture)
 {
-    if (texture->image.img)
+    if (texture)
 		mlx_destroy_image(game->mlx, texture->image.img);
     free(texture);
 }

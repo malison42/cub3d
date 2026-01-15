@@ -43,7 +43,7 @@ int parsing_configs(int fd, t_parsing_var *game_var);
 void free_map_array(char **map, int rows_to_free);
 int	is_mape_closure(t_game *game, char **map);
 void	free_tokens(char **tokens);
-int	parse_game_file(t_game *game, char *argv[], int argc);
+int	parse_game_file(t_game *game, int fd);
 
 int	uniqueness_verification(t_config_flags flags_mask, char *specificer);
 int	set_flags(char *specificer, t_config_flags *flags_mask);

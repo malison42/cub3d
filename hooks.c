@@ -6,18 +6,18 @@ int	close_win(t_game *game)
 	exit(0);
 }
 
-// static int	isobstacle(t_game *game, double x, double y)
-// {
-// 	if (game->map[(int)(y + 0.2)][(int)(x)] == '1')
-// 		return (1);
-// 	if (game->map[(int)(y - 0.2)][(int)(x)] == '1')
-// 		return (1);
-// 	if (game->map[(int)(y)][(int)(x + 0.2)] == '1')
-// 		return (1);
-// 	if (game->map[(int)(y)][(int)(x - 0.2)] == '1')
-// 		return (1);
-// 	return (0);
-// }
+static int	isobstacle(t_game *game, double x, double y)
+{
+	if (game->map[(int)(y + 0.05)][(int)(x)] == '1')
+		return (1);
+	if (game->map[(int)(y - 0.05)][(int)(x)] == '1')
+		return (1);
+	if (game->map[(int)(y)][(int)(x + 0.05)] == '1')
+		return (1);
+	if (game->map[(int)(y)][(int)(x - 0.05)] == '1')
+		return (1);
+	return (0);
+}
 
 void	walk(t_game *game, int sign, int axis)
 {
@@ -34,8 +34,8 @@ void	walk(t_game *game, int sign, int axis)
 		x = game->player.x - sign * sin(game->player.direction) / 10;
 		y = game->player.y + sign * cos(game->player.direction) / 10;
 	}
-	if (game->map[(int)(y)][(int)(x)] != '1')
-	// if (!isobstacle(game, x, y))
+	// if (game->map[(int)(y)][(int)(x)] != '1')
+	if (!isobstacle(game, x, y))
 	{
 		game->player.x = x;
 		game->player.y = y;
