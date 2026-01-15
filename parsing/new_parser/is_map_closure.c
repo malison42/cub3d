@@ -148,13 +148,17 @@ int	is_mape_closure(t_game *game, char **map)
 {
 	char	**copy_map;
 
+	// for (size_t i = 0; map[i] != NULL; i++)
+	// {
+	// 	printf("MAP[%zu]: %s\n", i, map[i]);
+	// }
 	copy_map = create_wrapped_map(game, map);
 
 	
-	for (size_t i = 0; copy_map[i] != NULL; i++)
-	{
-		printf("WRAPPED_MAP[%zu]: %s\n", i, copy_map[i]);
-	}
+	// for (size_t i = 0; copy_map[i] != NULL; i++)
+	// {
+	// 	printf("WRAPPED_MAP[%zu]: %s\n", i, copy_map[i]);
+	// }
 	if (!copy_map)
 		return (0);
 	if (!flood_fill_closure(game, copy_map, 0 , 0))

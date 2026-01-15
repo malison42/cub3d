@@ -3,83 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tskubits <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vzots <vzots@student.42yerevan.am>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 16:45:26 by tskubits          #+#    #+#             */
-/*   Updated: 2025/02/01 16:45:28 by tskubits         ###   ########.fr       */
+/*   Created: 2025/02/17 17:59:31 by vzots             #+#    #+#             */
+/*   Updated: 2026/01/15 21:15:32 by vzots            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// size_t	ft_strlen(char *s)
+// size_t	ft_strlen(const char *str)
 // {
-// 	size_t	len;
+// 	size_t	i;
 
-// 	len = 0;
-// 	while (s && s[len] != '\0')
-// 		++len;
-// 	return (len);
+// 	i = 0;
+// 	if (!str)
+// 		return (0);
+// 	while (str[i])
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
 // }
 
-size_t	delimiter(char *str)
+char	*ft_strjoin2(char *s1, char *s2)
 {
-	size_t	d;
+	char	*res;
+	char	*ptr;
+	char	*tmp;
 
-	if (!str)
-		return (0);
-	d = 0;
-	while (str[d] != '\n' && str[d] != '\0')
+	if (!s1)
 	{
-		++d;
+		s1 = (char *)malloc(sizeof(char) * 1);
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
 	}
-	if (str[d] == '\n')
-	{
-		++d;
-	}
-	return (d);
+	if (!s2)
+		return (free(s1), NULL);
+	res = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!res)
+		return (free(s1), NULL);
+	ptr = res;
+	tmp = s1;
+	while (*s1)
+		*ptr++ = *s1++;
+	while (*s2)
+		*ptr++ = *s2++;
+	*ptr = '\0';
+	free(tmp);
+	return (res);
 }
 
-char	*ft_join(char *s1, char *s2, size_t start, size_t finish)
+char	*ft_strchr2(const char *s, int c)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	char	ch;
 
-	str = malloc(ft_strlen(s1) + finish - start + 1);
-	if (!str)
+	ch = (char)c;
+	if (!s)
 		return (NULL);
-	i = 0;
-	while (s1 && s1[i] != '\0' )
+	while (*s)
 	{
-		str[i] = s1[i];
-		++i;
+		if (*s == ch)
+			return ((char *)s);
+		s++;
 	}
-	j = 0;
-	while (s2 && j + start < finish)
-	{
-		str[i + j] = s2[j + start];
-		++j;
-	}
-	str[i + j] = '\0';
-	if (s1)
-	{
-		free(s1);
-	}
-	return (str);
-}
-
-char	*ft_clear(char *line, char *rem)
-{
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	if (rem)
-	{
-		free(rem);
-		rem = NULL;
-	}
+	if (ch == '\0')
+		return ((char *)s);
 	return (NULL);
 }

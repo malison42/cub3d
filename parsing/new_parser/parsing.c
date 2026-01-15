@@ -67,8 +67,12 @@ void	ft_free_path_texture(t_parsing_var *game_var)
 	i = 0;
 	while (i < 4)
 	{
+		printf("free path texture: %s\n", game_var->texturs[i].path_texture);
 		if (game_var->texturs[i].path_texture)
+		{
 			free(game_var->texturs[i].path_texture);
+			game_var->texturs[i].path_texture = NULL;
+		}
 		i++;
 	}
 }
@@ -89,17 +93,24 @@ int	parse_game_file(t_game *game, int fd)
 	// 				 "File has to be with the .cub extension", STDERR_FILENO);
 	// 	return (0);
 	// }
+	ft_bzero(&game_var, sizeof(t_parsing_var));
 	game_var.flags_mask = 0;
 	// fd = open(argv[1], O_RDONLY);
 	// if (fd == -1)
 	// 	return(perror("Open"), 0);
 	if (!parsing_configs(fd, &game_var))
+	{
+		get_next_line(-1);
 		return (close(fd), ft_free_path_texture(&game_var),0);
+	}
 	if (!get_fd_texture(game, &game_var))
 		return (close(fd), ft_free_path_texture(&game_var),0); // добавить perror
 	game_var.map = parse_map(fd, game);
 	if (!game_var.map)
+	{
+		ft_free_path_texture(&game_var);
 		return(close(fd), 0);
+	}
 	game->map = game_var.map;
 	game->start = game_var.start;
 	game->texture->ceiling = game_var.ceiling;

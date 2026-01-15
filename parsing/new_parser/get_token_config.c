@@ -30,11 +30,12 @@ char	*get_line(int fd)
 		free(str);
 		str = get_next_line(fd);
 		if (!str)
-			return (NULL);
+			return (get_next_line(-1), NULL);
 		len_str = ft_strlen(str);
 		if (len_str > 0 && str[len_str - 1] == '\n')
 			str[ft_strlen(str) - 1] = '\0';
 	}
+	
 	return (str);
 }
 
