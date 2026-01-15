@@ -48,7 +48,7 @@ int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 		// printf("str =%s", game_var->texturs[i].path_texture);
 		game->texture->side[i] = \
 		create_texture(game, game_var->texturs[i].path_texture);
-		free(game_var->texturs[i].path_texture);
+		// free(game_var->texturs[i].path_texture);
 		if (!game->texture->side[i])
 		{
 			perror("file_texture");
@@ -93,9 +93,9 @@ int	parse_game_file(t_game *game, char *argv[], int argc)
 	if (fd == -1)
 		return(perror("Open"), 0);
 	if (!parsing_configs(fd, &game_var))
-		return (close(fd), 0);
+		return (close(fd), ft_free_path_texture(&game_var),0);
 	if (!get_fd_texture(game, &game_var))
-		return (close(fd), 0); // добавить perror
+		return (close(fd), ft_free_path_texture(&game_var),0); // добавить perror
 	game_var.map = parse_map(fd, game);
 	if (!game_var.map)
 		return(close(fd), 0);

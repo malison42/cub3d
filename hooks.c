@@ -46,7 +46,7 @@ int	key_hook(int key, t_game *game)
 {
 	// printf("new key %d\n", key);
 	if (key == ESC)
-		exit(0);
+		close_win(game);
 	else if (key == UP)
 		walk(game, +1, 1);
 	else if (key == DOWN)

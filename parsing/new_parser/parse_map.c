@@ -31,6 +31,9 @@ char	**parse_map(int fd, t_game *game)
 
 	ft_lstclear(&map_list, free); // освобождаем так как дальше лист не нужен
 	if (!is_valid_map(game, map))
-		return (NULL);
-	return (map);
+    {
+        free_map_array(map, game->map_y);
+        return (NULL);
+    }
+    return (map);
 }
