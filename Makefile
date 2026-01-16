@@ -14,7 +14,7 @@ OBJ			= $(SRC:.c=.o) $(PARSING_SRC:.c=.o)
 
 HEADER		= cub.h keys_macos.h keys_linux.h
 
-CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 LIB_DIR		= libft
 
 ifeq ($(shell uname), Darwin)

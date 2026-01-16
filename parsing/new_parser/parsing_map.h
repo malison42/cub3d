@@ -62,5 +62,6 @@ t_list	*read_map_to_list(int fd, int *map_x);
 int		validate_player_start(t_game *game, char **map);
 char	**parse_map(int fd, t_game *game);
 char	*get_line(int fd);
-int		is_map_with_empty_lines(t_game *game, char **map);
+int 	is_empty_line(char *line);
+void	resize_map_y(t_game *game, char **map);
 #endif

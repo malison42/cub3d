@@ -29,8 +29,8 @@
 #  include "keys_linux.h"
 # endif
 
-# define A 1600
-# define B 1000
+# define A 1280
+# define B 800
 # define C A / 5
 # define D B / 5
 // # define SIDE 20
@@ -207,7 +207,7 @@ void	line(t_point a, t_point b, t_game *game);
 void	draw_image(t_game *game);
 
 //init.c
-void	init_minimap(t_game *game);
+int	init_minimap(t_game *game);
 int		init_game(t_game *game);
 
 //hooks.c

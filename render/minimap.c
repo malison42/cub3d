@@ -1,5 +1,23 @@
 #include "../cub.h"
 
+void	draw_font(t_game *game)
+{
+	int x;
+	int y;
+	
+	y = 0;
+	while(y < D)
+	{
+		x = 0;
+		while (x < C)
+		{
+			put_pixel(&game->map2D.image, x, y, 0);
+			++x;
+		}
+		++y;
+	}
+}
+
 void	draw_walls(t_game *game)
 {
 	int	x;
@@ -49,6 +67,7 @@ void	draw_fow(t_game *game)
 
 void	draw_minimap(t_game *game)
 {
+	draw_font(game);
 	draw_walls(game);
 	draw_fow(game);
 }
