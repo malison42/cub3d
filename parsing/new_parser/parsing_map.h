@@ -1,30 +1,30 @@
 #ifndef PARSING_MAP_H
 # define PARSING_MAP_H
 
-#define VALID_CHARS "01NSEW #"
+# define VALID_CHARS "01NSEW #"
 
-#include "../../cub.h"
+# include "../../cub.h"
 
 
 
 typedef enum e_config_flags
 {
-    FLAG_NO = 1 << 0,
-    FLAG_SO = 1 << 1,
-    FLAG_WE = 1 << 2,
+	FLAG_NO = 1 << 0,
+	FLAG_SO = 1 << 1,
+	FLAG_WE = 1 << 2,
 	FLAG_EA = 1 << 3,
-    FLAG_F  = 1 << 4, // 16
-    FLAG_C  = 1 << 5, // 32
-} t_config_flags;
+	FLAG_F = 1 << 4,
+	FLAG_C = 1 << 5,
+}	t_config_flags;
 
 
 typedef struct s_filename_texture
 {
-	t_sunny_side side;
+	t_sunny_side	side;
 	//char	*side;
-	char	*path_texture;
+	char			*path_texture;
 	//int		is_find;
-} t_filename_texture;
+}	t_filename_texture;
 
 typedef struct s_parsing_var
 {
@@ -50,8 +50,10 @@ int	set_flags(char *specificer, t_config_flags *flags_mask);
 int	is_rgb_coloor(char	*specificer);
 int	is_path_texture(char *specificer);
 char	**get_token_config(int fd);
-int	fill_rgb_color(char *specificer, t_parsing_var *game_var, char *rgb_collors);
-int	fill_path_texture(t_parsing_var *game_var, char	*specificer, char *path_texture);
+int	fill_rgb_color(char *specificer,
+			t_parsing_var *game_var, char *rgb_collors);
+int	fill_path_texture(t_parsing_var *game_var,
+			char *specificer, char *path_texture);
 int	is_valid_sym(t_game *game, char **map, char *set);
 int	validate_token_config(char **token_config, char **config_specificers);
 int parsing_configs(int fd, t_parsing_var *game_var);

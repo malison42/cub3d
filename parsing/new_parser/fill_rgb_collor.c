@@ -43,11 +43,12 @@ t_color	parse_color(char *token_config)
 	if (color.r < 0 || color.g < 0 || color.b < 0 || col[3])
 	{
 		ft_putstr_fd(MESSAGE_SCENE_NOT_VALID, STDERR_FILENO);
-		return (free_tokens(col) ,new_color(-1, -1, -1));
+		return (free_tokens(col), new_color(-1, -1, -1));
 	}
 	free_tokens(col);
 	return (color);
 }
+
 int	set_rgb(t_parsing_var *game_var, t_color temp_color, char *specificer)
 {
 	if (!ft_strcmp(specificer, "F"))
@@ -55,19 +56,19 @@ int	set_rgb(t_parsing_var *game_var, t_color temp_color, char *specificer)
 	else if (!ft_strcmp(specificer, "C"))
 		game_var->ceiling = temp_color;
 	else
-		return(0);
+		return (0);
 	return (1);
 }
 
 int	fill_rgb_color(char *specificer, t_parsing_var *game_var, char *rgb_collors)
 {
-	t_color temp_color;
+	t_color	temp_color;
 
 	if (!uniqueness_verification(game_var->flags_mask, specificer))
 		return (0);
 	temp_color = parse_color(rgb_collors);
 	if (temp_color.r == -1)
-		return (0);// для проверки в иф
+		return (0);
 	if (!set_flags(specificer, &game_var->flags_mask))
 		return (0);
 	if (!set_rgb(game_var, temp_color, specificer))

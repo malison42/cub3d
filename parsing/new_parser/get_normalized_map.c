@@ -1,7 +1,6 @@
-
 #include "parsing_map.h"
 
-char 	*pad_line_end(char *line, int map_x)
+char	*pad_line_end(char *line, int map_x)
 {
 	int	i;
 
@@ -25,18 +24,17 @@ char	**get_normalized_map(t_game *game, t_list *map_list)
 	tmp = map_list;
 	map = malloc(sizeof(char *) * (game->map_y + 1));
 	if (!map)
-		return(NULL);
+		return (NULL);
 	while (i < game->map_y)
 	{
 		map[i] = malloc(game->map_x + 1);
 		if (!map[i])
-			return(free_map_array(map, i), NULL);
+			return (free_map_array(map, i), NULL);
 		ft_strlcpy(map[i], (char *)tmp->content, game->map_x + 1);
 		map[i] = pad_line_end(map[i], game->map_x);
-		//printf("%s\n", map[i]);
 		tmp = tmp->next;
 		++i;
 	}
 	map[i] = NULL;
-	return(map);
+	return (map);
 }

@@ -4,8 +4,7 @@ void	free_map_array(char **map, int rows_to_free);
 
 void	free_game(t_game *game)
 {
-    
-        printf("QQQQ:\n");
+	printf("QQQQ:\n");
 	if (game->map)
 		free_map_array(game->map, game->map_y);
 	if (game->texture)
@@ -24,14 +23,12 @@ void	free_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->image.img);
 	if (game->map2D.image.img)
 		mlx_destroy_image(game->mlx, game->map2D.image.img);
-
-    if (game->win)
+	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-    if (game->mlx)
-    {
-	    mlx_destroy_display(game->mlx);
-        
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
 		free(game->mlx);
-    }
+	}
 }
 

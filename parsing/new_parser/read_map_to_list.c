@@ -1,4 +1,3 @@
-
 #include "parsing_map.h"
 
 int	is_node_null(t_list *tmp, t_list **map_list, char *line)

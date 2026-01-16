@@ -31,13 +31,13 @@ char	*fill_str_symb(char	*str, char symb, int len_alloc)
 char	*create_wrapped_cols(t_game *game, char **map, int i)
 {
 	char	*wrapped_line;
-	int wrapped_cols;
+	int		wrapped_cols;
 
 	wrapped_cols = game->map_x + 2;
-	wrapped_line= malloc(sizeof(char) * (wrapped_cols + 1));
+	wrapped_line = malloc(sizeof(char) * (wrapped_cols + 1));
 	if (!wrapped_line)
 		return (NULL);
-	if (i == 0 || i ==  game->map_y + 1)
+	if (i == 0 || i == game->map_y + 1)
 		ft_memset(wrapped_line, '#', wrapped_cols);
 	else
 	{
@@ -49,7 +49,7 @@ char	*create_wrapped_cols(t_game *game, char **map, int i)
 	return (wrapped_line);
 }
 
-char **create_wrapped_map(t_game *game, char **map)
+char	**create_wrapped_map(t_game *game, char **map)
 {
 	char	**map_wrapped;
 	int		i;
@@ -57,14 +57,14 @@ char **create_wrapped_map(t_game *game, char **map)
 
 	i = 0;
 	wrapped_rows = game->map_y + 2;
-	map_wrapped = malloc(sizeof(char *) * (wrapped_rows + 1)); // +1 для NULL-терминатора
+	map_wrapped = malloc(sizeof(char *) * (wrapped_rows + 1));
 	if (!map_wrapped)
 		return (NULL);
 	while (i < wrapped_rows)
 	{
 		map_wrapped[i] = create_wrapped_cols(game, map, i);
 		if (!map_wrapped[i])
-			return(free_map_array(map_wrapped, i), NULL);
+			return (free_map_array(map_wrapped, i), NULL);
 		i++;
 	}
 	map_wrapped[wrapped_rows] = NULL;

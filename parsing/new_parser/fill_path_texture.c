@@ -1,6 +1,5 @@
 #include "parsing_map.h"
 
-
 int	get_sunny_side(char *specificer)
 {
 	if (!ft_strcmp(specificer, "NO"))
@@ -14,9 +13,10 @@ int	get_sunny_side(char *specificer)
 	return (ERROR);
 }
 
-int	fill_path_texture(t_parsing_var *game_var, char	*specificer, char *path_texture)
+int	fill_path_texture(t_parsing_var *game_var, char	*specificer,
+	char *path_texture)
 {
-	int sunny_side;
+	int	sunny_side;
 
 	sunny_side = get_sunny_side(specificer);
 	if (sunny_side == ERROR)

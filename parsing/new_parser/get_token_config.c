@@ -1,11 +1,11 @@
-# include "parsing_map.h"
+#include "parsing_map.h"
 
-int		str_is_skip(const char *str)
+int	str_is_skip(const char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (!ft_isspace(str[i]))
 			return (0);
@@ -35,7 +35,6 @@ char	*get_line(int fd)
 		if (len_str > 0 && str[len_str - 1] == '\n')
 			str[ft_strlen(str) - 1] = '\0';
 	}
-	
 	return (str);
 }
 

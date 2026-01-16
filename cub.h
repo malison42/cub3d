@@ -46,14 +46,14 @@
 # define MESSAGE_SCENE_NOT_VALID "Scene is not valid"
 // # define MESSAGE_MALLOC "Unable to allocate memory"
 
-typedef	enum e_sunny_side
+typedef enum e_sunny_side
 {
 	NORTH,
 	SOUTH,
 	WEST,
 	EAST,
 	ERROR,
-} t_sunny_side;
+}	t_sunny_side;
 
 typedef struct s_color
 {
@@ -71,7 +71,7 @@ typedef struct s_point
 typedef struct s_player
 {
 	int		x;
-	int 	y;
+	int		y;
 	double	view;
 }	t_player;
 
@@ -103,7 +103,7 @@ typedef struct s_collision
 {
 	t_ray	dir;
 	t_point	step;
-	t_point map;
+	t_point	map;
 	t_ray	delta;
 	t_ray	side;
 }	t_collision;
@@ -122,8 +122,8 @@ typedef struct s_textures
 	// t_texture	*west;
 	// t_texture	*east;
 	t_texture		*side[4];
-	t_color	floor;
-	t_color	ceiling;
+	t_color			floor;
+	t_color			ceiling;
 }	t_textures;
 
 typedef struct s_map2D
@@ -139,17 +139,17 @@ typedef struct s_map2D
 
 typedef struct s_game
 {
-	void 			*mlx;
-	void 			*win;
-	t_image 		image;
-	t_textures		*texture;
-	int				map_x;
-	int				map_y;
-	char			**map;
-	t_player		start;
-	t_map2D			map2D;
-	t_ray			player;
-	int				minimap_on;
+	void		*mlx;
+	void		*win;
+	t_image		image;
+	t_textures	*texture;
+	int			map_x;
+	int			map_y;
+	char		**map;
+	t_player	start;
+	t_map2D		map2D;
+	t_ray		player;
+	int			minimap_on;
 }	t_game;
 
 
@@ -165,7 +165,7 @@ typedef struct s_game
 
 // t_color	new_color(int r, int g, int b);
 // char	*get_line(int fd);
-int	parse_game_file(t_game *game, int fd);
+int		parse_game_file(t_game *game, int fd);
 t_color	new_color(int r, int g, int b);
 char	*get_line(int fd);
 
@@ -181,8 +181,8 @@ void	draw_minimap(t_game *game);
 t_wall	find_collision(t_game *game, double ray);
 
 //rays_utils.c
-void    init_collision_structure(t_game *game, t_collision *c);
-void    define_surface(t_game *game, t_wall *collision);
+void	init_collision_structure(t_game *game, t_collision *c);
+void	define_surface(t_game *game, t_wall *collision);
 double	fdistance(t_wall a, t_ray b);
 
 //pixel.c

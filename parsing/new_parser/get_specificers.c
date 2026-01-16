@@ -1,4 +1,3 @@
-
 #include "parsing_map.h"
 
 char	**get_specificers(int mode)

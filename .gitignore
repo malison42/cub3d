@@ -1,0 +1,5 @@
+libmlx_linux/*
+libmlx_macos/*
+.vscode
+*.o
+test_parsing

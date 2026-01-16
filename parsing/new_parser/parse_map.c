@@ -15,7 +15,8 @@ int is_empty_line(char *line)
 int	is_map_with_empty_lines(t_game *game, char **map)
 {
 	int	i;
-	int empty_line;
+	int	empty_line;
+
 	i = 0;
 	empty_line = 0;
 	while (i < game->map_y)
@@ -23,7 +24,7 @@ int	is_map_with_empty_lines(t_game *game, char **map)
 		if (is_empty_line(map[i]))
 		{
 			empty_line = 1;
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -35,7 +36,7 @@ int	is_map_with_empty_lines(t_game *game, char **map)
 			if (!is_empty_line(map[i]))
 			{
 				empty_line = 1;
-				break;
+				break ;
 			}
 			i++;
 		}
@@ -76,11 +77,11 @@ char	**parse_map(int fd, t_game *game)
 		printf("MgfAP[%zu]: %s\n", i, map[i]);
 	}
 
-	ft_lstclear(&map_list, free); // освобождаем так как дальше лист не нужен
+	ft_lstclear(&map_list, free);
 	if (!is_valid_map(game, map))
-    {
-        free_map_array(map, game->map_y);
-        return (NULL);
-    }
-    return (map);
+	{
+		free_map_array(map, game->map_y);
+		return (NULL);
+	}
+	return (map);
 }

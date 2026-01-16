@@ -28,12 +28,11 @@ int	check_start_pos(t_game *game, int y, char **map)
 	{
 		if (ft_isset(map[y][x], "NSWE"))
 		{
-			// ? Возможно стоит добавить флаг а не использовать значении данное при иницилизации
 			if (count_start_pos == 0) // !работет при иницилизации нулями
-				{
-					printf("X = %d Y = %d\n", x , y);
-					set_player(&game->start, x, y, map[y][x]);
-				}
+			{
+				printf("X = %d Y = %d\n", x, y);
+				set_player(&game->start, x, y, map[y][x]);
+			}
 			count_start_pos++;
 		}
 		++x;
