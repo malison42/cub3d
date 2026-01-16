@@ -1,6 +1,6 @@
 #include "cub.h"
 
-void	init_minimap(t_game *game)
+int	init_minimap(t_game *game)
 {
 	game->map2D.scale = ft_min(
 			(int)((C) / game->map_x),
@@ -15,8 +15,17 @@ void	init_minimap(t_game *game)
 	game->map2D.wall_color = new_color(200, 200, 200);
 	game->map2D.ray_color = new_color(150, 150, 0);
 	game->map2D.image.img = NULL;
+	game->map2D.image.img = mlx_new_image(game->mlx, C, D);
+	if (!game->map2D.image.img)
+		return (perror("mlx_image"), 0);
+	game->map2D.image.addr = mlx_get_data_addr(
+			game->map2D.image.img,
+			&game->map2D.image.bpp,
+			&game->map2D.image.line_size,
+			&game->map2D.image.endian);
 	printf("2D-scale %d\n", game->map2D.scale);
 	printf("x %.1f   y %.1f\n", game->map2D.player.x, game->map2D.player.y);
+	return (1);
 }
 
 int	init_game(t_game *game)
@@ -35,7 +44,14 @@ int	init_game(t_game *game)
 	game->win = mlx_new_window(game->mlx, A, B, "GAME");
 	if (!game->win)
 		return (perror("mlx_window_init"), 0);
-	game->image.img = NULL;
+	game->image.img = mlx_new_image(game->mlx, A, B);
+	if (!game->image.img)
+		return (perror("mlx_image"), 0);
+	game->image.addr = mlx_get_data_addr(
+			game->image.img,
+			&game->image.bpp,
+			&game->image.line_size,
+			&game->image.endian);
 	game->minimap_on = 0;
 	return (1);
 }

@@ -28,22 +28,23 @@ int	open_map_file(int argc, char **argv)
 
 void	draw_image(t_game *game)
 {
-	if (game->image.img)
-		mlx_destroy_image(game->mlx, game->image.img);
-	game->image.img = mlx_new_image(game->mlx, A, B);
-	game->image.addr = mlx_get_data_addr(
-			game->image.img,
-			&game->image.bpp,
-			&game->image.line_size,
-			&game->image.endian);
-	if (game->map2D.image.img)
-		mlx_destroy_image(game->mlx, game->map2D.image.img);
-	game->map2D.image.img = mlx_new_image(game->mlx, C, D);
-	game->map2D.image.addr = mlx_get_data_addr(
-			game->map2D.image.img,
-			&game->map2D.image.bpp,
-			&game->map2D.image.line_size,
-			&game->map2D.image.endian);
+//	if (game->image.img)
+//		mlx_destroy_image(game->mlx, game->image.img);
+//	game->image.img = mlx_new_image(game->mlx, A, B);
+//	game->image.addr = mlx_get_data_addr(
+//			game->image.img,
+//			&game->image.bpp,
+//			&game->image.line_size,
+//			&game->image.endian);
+//	if (game->map2D.image.img)
+//		mlx_destroy_image(game->mlx, game->map2D.image.img);
+//	game->map2D.image.img = mlx_new_image(game->mlx, C, D);
+//	game->map2D.image.addr = mlx_get_data_addr(
+//			game->map2D.image.img,
+//			&game->map2D.image.bpp,
+//			&game->map2D.image.line_size,
+//			&game->map2D.image.endian);
+	
 	draw_game(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->image.img, 0, 0);
 	if (game->minimap_on)
@@ -73,7 +74,12 @@ int	main(int argc, char **argv)
 		free_game(&game);
 		return (EXIT_FAILURE);
 	}
-	init_minimap(&game);
+	if (!init_minimap(&game))
+	{
+		free_game(&game);
+		return (EXIT_FAILURE);
+	}
+//	init_minimap(&game);
 	printf("%f %f\n", game.player.x, game.player.y);
 	draw_image(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);

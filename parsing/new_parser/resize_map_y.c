@@ -15,6 +15,6 @@ void	resize_map_y(t_game *game, char **map)
 		free(map[iter]);
 		map[iter] = NULL;
 	}
-//	printf("counter %d  map_y %d  iter %d\n", counter, game->map_y, iter);
+	printf("counter %d  map_y %d  iter %d\n", counter, game->map_y, iter);
 	game->map_y = counter;
 }
