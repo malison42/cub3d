@@ -43,7 +43,7 @@
 // # define MESSAGE_WRONG_ARGS "Wrong number of arguments"
 // # define MESSAGE_WRONG_FILE_TYPE "Wrong type of file"
 # define MESSAGE_WRONG_FILE "File error"
-# define MESSAGE_SCENE_NOT_VALID "Scene is not valid"
+# define MESSAGE_SCENE_NOT_VALID "Scene is not valid\n"
 // # define MESSAGE_MALLOC "Unable to allocate memory"
 
 typedef enum e_sunny_side
@@ -133,7 +133,7 @@ typedef struct s_map2D
 	t_color			ray_color;
 	t_ray			player;
 	int				shift_x;
-	int 			shift_y;
+	int				shift_y;
 	t_image			image;
 }	t_map2D;
 

@@ -67,14 +67,13 @@ int	main(int argc, char **argv)
 		free_game(&game);
 		return (EXIT_FAILURE);
 	}
-	printf("shcjkzxlhc\n");
 	if (!parse_game_file(&game, fd))
 	{
 		free_game(&game);
 		return (EXIT_FAILURE);
 	}
 	init_minimap(&game);
-	printf("%f %f\n", game.player.x, game.player.y);
+	// printf("%f %f\n", game.player.x, game.player.y);
 	draw_image(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.image.img, 0, 0);
 	mlx_do_key_autorepeaton(game.mlx);

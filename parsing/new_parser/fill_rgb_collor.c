@@ -42,6 +42,7 @@ t_color	parse_color(char *token_config)
 	color = new_color(get_col(col[0]), get_col(col[1]), get_col(col[2]));
 	if (color.r < 0 || color.g < 0 || color.b < 0 || col[3])
 	{
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 		ft_putstr_fd(MESSAGE_SCENE_NOT_VALID, STDERR_FILENO);
 		return (free_tokens(col), new_color(-1, -1, -1));
 	}

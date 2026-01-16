@@ -5,13 +5,13 @@ void free_array(char **array)
 	int i = 0;
 
 	if (!array)
-		return;
-	while (array[i]) // Остановка по NULL-терминатору
+		return ;
+	while (array[i])
 	{
 		free(array[i]);
 		i++;
 	}
-	free(array); // Освобождение самого массива указателей
+	free(array);
 }
 
 char	*fill_str_symb(char	*str, char symb, int len_alloc)
@@ -71,7 +71,7 @@ char	**create_wrapped_map(t_game *game, char **map)
 	return (map_wrapped);
 }
 
-int	flood_fill_accessibility(t_game *game,char **map_wrapped, int y, int x)
+int	flood_fill_accessibility(t_game *game, char **map_wrapped, int y, int x)
 {
 	char	curent_char;
 
@@ -83,10 +83,10 @@ int	flood_fill_accessibility(t_game *game,char **map_wrapped, int y, int x)
 	if (curent_char == '1' || curent_char == 'F')
 		return (1);
 	map_wrapped[y][x] = 'F';
-	if (!flood_fill_accessibility(game, map_wrapped, y + 1, x) || // Вниз
-		!flood_fill_accessibility(game, map_wrapped, y - 1, x) || // Вверх
-		!flood_fill_accessibility(game, map_wrapped, y, x + 1) || // Вправо
-		!flood_fill_accessibility(game, map_wrapped, y, x - 1))   // Влево
+	if (!flood_fill_accessibility(game, map_wrapped, y + 1, x)
+		|| !flood_fill_accessibility(game, map_wrapped, y - 1, x)
+		|| !flood_fill_accessibility(game, map_wrapped, y, x + 1)
+		|| !flood_fill_accessibility(game, map_wrapped, y, x - 1))
 	{
 		return (0);
 	}
@@ -108,10 +108,10 @@ int	flood_fill_closure(t_game *game,char **map_wrapped, int y, int x)
 		map_wrapped[y][x] = 'F';
 	else
 		return (0);
-	if (!flood_fill_closure(game, map_wrapped, y + 1, x) || // Вниз
-		!flood_fill_closure(game, map_wrapped, y - 1, x) || // Вверх
-		!flood_fill_closure(game, map_wrapped, y, x + 1) || // Вправо
-		!flood_fill_closure(game, map_wrapped, y, x - 1))   // Влево
+	if (!flood_fill_closure(game, map_wrapped, y + 1, x)
+		|| !flood_fill_closure(game, map_wrapped, y - 1, x)
+		|| !flood_fill_closure(game, map_wrapped, y, x + 1)
+		|| !flood_fill_closure(game, map_wrapped, y, x - 1))
 	{
 		return (0);
 	}
@@ -135,7 +135,7 @@ int check_all_reachable( char **map_wrapped)
 				{
 					printf("WRAPPED_MAP[%zu]: %s\n", i, map_wrapped[i]);
 				}
-				return(0);
+				return (0);
 			}
 			x++;
 		}
