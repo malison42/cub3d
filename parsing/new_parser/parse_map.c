@@ -55,6 +55,7 @@ int	is_valid_map(t_game *game, char **map)
 		return (0);
 	if (is_map_with_empty_lines(game, map))
 		return (0);
+	resize_map_y(game, map);
 	return (1);
 }
 
