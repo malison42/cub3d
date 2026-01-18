@@ -19,7 +19,7 @@ int	set_player(t_player *start, int x, int y, char view)
 
 int	check_start_pos(t_game *game, int y, char **map)
 {
-	int x;
+	int	x;
 	int	count_start_pos;
 
 	count_start_pos = 0;
@@ -28,7 +28,7 @@ int	check_start_pos(t_game *game, int y, char **map)
 	{
 		if (ft_isset(map[y][x], "NSWE"))
 		{
-			if (count_start_pos == 0) // !работет при иницилизации нулями
+			if (count_start_pos == 0)
 			{
 				printf("X = %d Y = %d\n", x, y);
 				set_player(&game->start, x, y, map[y][x]);
@@ -40,7 +40,7 @@ int	check_start_pos(t_game *game, int y, char **map)
 	return (count_start_pos);
 }
 
-int validate_player_start(t_game *game, char **map)
+int	validate_player_start(t_game *game, char **map)
 {
 	int	y;
 	int	count_start_pos;

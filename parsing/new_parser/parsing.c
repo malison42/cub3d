@@ -1,5 +1,3 @@
-
-
 #include "parsing_map.h"
 
 void	free_tokens(char **tokens)
@@ -28,15 +26,6 @@ void	free_map_array(char **map, int rows_to_free)
 	free(map);
 }
 
-void	close_fd(int *fd, int i)
-{
-	while (i > -1)
-	{
-		close(fd[i]);
-		i--;
-	}
-}
-
 int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 {
 	int	i;
@@ -44,22 +33,15 @@ int	get_fd_texture(t_game *game, t_parsing_var *game_var)
 	i = 0;
 	while (i < 4)
 	{
-		// printf("fd =%d", game->texture->fd_texture[i]);
-		// int fd = open(game_var->texturs[i].path_texture, O_RDONLY);
-		// game->texture->fd_texture[i] = fd;
-		// printf("str =%s", game_var->texturs[i].path_texture);
 		game->texture->side[i]
 			= create_texture(game, game_var->texturs[i].path_texture);
-		// free(game_var->texturs[i].path_texture);
 		if (!game->texture->side[i])
 		{
-			// perror("file_texture");
-			//close_fd(game->texture->fd_texture, i - 1);
-			return(0);
+			return (0);
 		}
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 void	ft_free_path_texture(t_parsing_var *game_var)
@@ -86,7 +68,6 @@ int	parse_game_file(t_game *game, int fd)
 
 	ft_bzero(&game_var, sizeof(t_parsing_var));
 	game_var.flags_mask = 0;
-
 	if (!parsing_configs(fd, &game_var))
 	{
 		get_next_line(-1);

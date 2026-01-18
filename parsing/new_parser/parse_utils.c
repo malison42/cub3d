@@ -1,6 +1,5 @@
 #include "parsing_map.h"
 
-
 int	set_flags(char *specificer, t_config_flags *flags_mask)
 {
 	if (!ft_strcmp(specificer, "F"))
@@ -19,7 +18,6 @@ int	set_flags(char *specificer, t_config_flags *flags_mask)
 		return (0);
 	return (1);
 }
-
 
 int	is_rgb_coloor(char	*specificer)
 {

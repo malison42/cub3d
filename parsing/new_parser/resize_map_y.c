@@ -3,8 +3,8 @@
 void	resize_map_y(t_game *game, char **map)
 {
 	int	counter;
-	int iter;
-	
+	int	iter;
+
 	counter = 0;
 	while (counter < game->map_y && !is_empty_line(map[counter]))
 		++counter;

@@ -1,6 +1,6 @@
 #include "parsing_map.h"
 
-int		fill_config(t_parsing_var *game_var, char **token_config)
+int	fill_config(t_parsing_var *game_var, char **token_config)
 {
 	char	*specificer;
 
@@ -21,38 +21,87 @@ int		fill_config(t_parsing_var *game_var, char **token_config)
 		return (0);
 }
 
-int	parsing_configs(int fd, t_parsing_var *game_var)
+static int	process_token_config(int fd, t_parsing_var *game_var,
+			char **config_specificers)
 {
 	char	**token_config;
+
+	token_config = get_token_config(fd);
+	if (!token_config)
+		return (-1);
+	if (!validate_token_config(token_config, config_specificers))
+	{
+		free_tokens(token_config);
+		return (-2);
+	}
+	if (!fill_config(game_var, token_config))
+	{
+		free_tokens(token_config);
+		return (-3);
+	}
+	free_tokens(token_config);
+	return (0);
+}
+
+int	parsing_configs(int fd, t_parsing_var *game_var)
+{
 	char	**config_specificers;
+	int		res;
 
 	config_specificers = get_specificers(1);
 	while (game_var->flags_mask != 63)
 	{
-		token_config = get_token_config(fd);
-		if (!token_config)
+		res = process_token_config(fd, game_var, config_specificers);
+		if (res == -1)
 		{
 			if (game_var->flags_mask != 63)
 				printf("Не все конфиги найдены\n");
-			return (free(config_specificers), 0);
+			free(config_specificers);
+			return (0);
 		}
-		if (!validate_token_config(token_config, config_specificers))
+		if (res < 0)
 		{
-			printf("Error 23\n");
 			if (game_var->flags_mask != 63)
-			{
 				printf("Не все конфиги найдены\n");
-				free_tokens(token_config);
-				return (free(config_specificers), 0);
-			}
-			return (free(config_specificers), free_tokens(token_config), 0);
+			free(config_specificers);
+			return (0);
 		}
-		if (!fill_config(game_var, token_config))
-			return (free(config_specificers), free_tokens(token_config), 0);
-		free_tokens(token_config);
 	}
-	if (game_var->flags_mask != 63)
-		printf("Не все конфиги найдены\n");
 	free(config_specificers);
 	return (1);
 }
+
+// int	parsing_configs(int fd, t_parsing_var *game_var)
+// {
+// 	char	**token_config;
+// 	char	**config_specificers;
+
+// 	config_specificers = get_specificers(1);
+// 	while (game_var->flags_mask != 63)
+// 	{
+// 		token_config = get_token_config(fd);
+// 		if (!token_config)
+// 		{
+// 			if (game_var->flags_mask != 63)
+// 				printf("Не все конфиги найдены\n");
+// 			return (free(config_specificers), 0);
+// 		}
+// 		if (!validate_token_config(token_config, config_specificers))
+// 		{
+// 			if (game_var->flags_mask != 63)
+// 			{
+// 				printf("Не все конфиги найдены\n");
+// 				free_tokens(token_config);
+// 				return (free(config_specificers), 0);
+// 			}
+// 			return (free(config_specificers), free_tokens(token_config), 0);
+// 		}
+// 		if (!fill_config(game_var, token_config))
+// 			return (free(config_specificers), free_tokens(token_config), 0);
+// 		free_tokens(token_config);
+// 	}
+// 	if (game_var->flags_mask != 63)
+// 		printf("Не все конфиги найдены\n");
+// 	free(config_specificers);
+// 	return (1);
+// }

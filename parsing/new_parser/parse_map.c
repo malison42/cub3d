@@ -1,8 +1,10 @@
 #include "parsing_map.h"
 
-int is_empty_line(char *line)
+int	is_empty_line(char *line)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (line[i])
 	{
 		if (line[i] != '#')
@@ -12,10 +14,25 @@ int is_empty_line(char *line)
 	return (1);
 }
 
+int	check_empty_line_after(t_game *game, char **map, int start_line)
+{
+	int	i;
+
+	i = start_line;
+	while (i < game->map_y)
+	{
+		if (!is_empty_line(map[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	is_map_with_empty_lines(t_game *game, char **map)
 {
 	int	i;
-	int empty_line;
+	int	empty_line;
+
 	i = 0;
 	empty_line = 0;
 	while (i < game->map_y)
@@ -23,26 +40,16 @@ int	is_map_with_empty_lines(t_game *game, char **map)
 		if (is_empty_line(map[i]))
 		{
 			empty_line = 1;
-			break;
+			break ;
 		}
 		i++;
 	}
-	if (empty_line)
+	if (empty_line && !check_empty_line_after(game, map, i + 1))
 	{
-		empty_line = 0;
-		while (i < game->map_y)
-		{
-			if (!is_empty_line(map[i]))
-			{
-				empty_line = 1;
-				break ;
-			}
-			i++;
-		}
+		printf("Error\nMap contains empty line inside the map\n");
+		return (1);
 	}
-	if (empty_line)
-		printf("Error\nMap contains empty line\n");
-	return (empty_line);
+	return (0);
 }
 
 int	is_valid_map(t_game *game, char **map)
@@ -77,10 +84,6 @@ char	**parse_map(int fd, t_game *game)
 	{
 		free_map_array(map, game->map_y);
 		return (NULL);
-	}
-	for (size_t i = 0; map[i] != NULL; i++)
-	{
-		printf("MgfAP[%zu]: %s\n", i, map[i]);
 	}
 	return (map);
 }

@@ -5,8 +5,6 @@
 
 # include "../../cub.h"
 
-
-
 typedef enum e_config_flags
 {
 	FLAG_NO = 1 << 0,
@@ -16,7 +14,6 @@ typedef enum e_config_flags
 	FLAG_F = 1 << 4,
 	FLAG_C = 1 << 5,
 }	t_config_flags;
-
 
 typedef struct s_filename_texture
 {
@@ -39,11 +36,11 @@ typedef struct s_parsing_var
 }	t_parsing_var;
 
 char	**get_specificers(int mode);
-int parsing_configs(int fd, t_parsing_var *game_var);
-void free_map_array(char **map, int rows_to_free);
-int	is_mape_closure(t_game *game, char **map);
+int		parsing_configs(int fd, t_parsing_var *game_var);
+void	free_map_array(char **map, int rows_to_free);
+int		is_mape_closure(t_game *game, char **map);
 void	free_tokens(char **tokens);
-int	parse_game_file(t_game *game, int fd);
+int		parse_game_file(t_game *game, int fd);
 
 int		uniqueness_verification(t_config_flags flags_mask, char *specificer);
 int		set_flags(char *specificer, t_config_flags *flags_mask);
@@ -62,6 +59,7 @@ t_list	*read_map_to_list(int fd, int *map_x);
 int		validate_player_start(t_game *game, char **map);
 char	**parse_map(int fd, t_game *game);
 char	*get_line(int fd);
-int 	is_empty_line(char *line);
+int		is_empty_line(char *line);
 void	resize_map_y(t_game *game, char **map);
+char	**create_wrapped_map(t_game *game, char **map);
 #endif

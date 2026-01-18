@@ -51,4 +51,3 @@ t_list	*read_map_to_list(int fd, int *map_x)
 	}
 	return (map_list);
 }
-
