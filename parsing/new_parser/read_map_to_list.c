@@ -36,7 +36,7 @@ t_list	*read_map_to_list(int fd, int *map_x)
 	line = get_line(fd);
 	if (!line)
 	{
-		ft_putstr_fd("Error: Map not found\n", STDERR_FILENO);
+		ft_putstr_fd("Error\n Map not found\n", STDERR_FILENO);
 		return (NULL);
 	}
 	while (line)
