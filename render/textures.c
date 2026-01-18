@@ -15,7 +15,7 @@ t_texture	*create_texture(t_game *game, char *filename)
 			game->mlx, filename, &texture->width, &texture->height);
 	if (!texture->image.img)
 	{
-		perror("mlx");
+		perror("Error\nmlx");
 		free(texture);
 		return (NULL);
 	}
