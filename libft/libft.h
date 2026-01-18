@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tskubits <tskubits@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vzots <vzots@student.42yerevan.am>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:08:12 by tskubits          #+#    #+#             */
-/*   Updated: 2026/01/09 17:35:09 by tskubits         ###   ########.fr       */
+/*   Updated: 2026/01/18 17:02:43 by vzots            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 
-int			ft_max(int a, int b);
-int			ft_min(int a, int b);
+int				ft_max(int a, int b);
+int				ft_min(int a, int b);
 
 /* bonus */
 t_list			*ft_lstnew(void *content);

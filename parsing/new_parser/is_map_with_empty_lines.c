@@ -106,8 +106,7 @@
 // {
 // 	int	first_non_empty_after;
 // 	int	first_empty;
-
-
+//
 // 	first_empty = find_first_empty_line(game, 0, map);
 // 	if (first_empty == -1)
 // 		return (0);

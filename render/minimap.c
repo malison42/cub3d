@@ -2,11 +2,11 @@
 
 void	draw_font(t_game *game)
 {
-	int x;
-	int y;
-	
+	int	x;
+	int	y;
+
 	y = 0;
-	while(y < D)
+	while (y < D)
 	{
 		x = 0;
 		while (x < C)

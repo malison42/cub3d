@@ -6,7 +6,7 @@
 /*   By: vzots <vzots@student.42yerevan.am>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 17:59:18 by vzots             #+#    #+#             */
-/*   Updated: 2026/01/15 21:16:37 by vzots            ###   ########.fr       */
+/*   Updated: 2026/01/18 17:02:15 by vzots            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "libft.h"
+
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strchr2(const char *s, int c);
